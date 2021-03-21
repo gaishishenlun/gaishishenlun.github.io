@@ -1,0 +1,713 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/head.jpg">
+  <link rel="icon" type="image/png" href="/images/head.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="1|2|3|4|5">
+  <meta name="author" content="盖世神论">
+  <meta name="keywords" content="">
+  <title>Linux后台运行程序 - My Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gaishishenlun.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":64,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>盖世神伦</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                文档
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://space.bilibili.com/102541140">
+                    
+                    Bilibili
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43343078">
+                    
+                    CSDN
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Linux后台运行程序">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-16 21:54" pubdate>
+        2021-01-16 21:54:38
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux后台运行程序</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Linux后台运行-可退出登录-断开ssh"><a href="#Linux后台运行-可退出登录-断开ssh" class="headerlink" title="Linux后台运行(可退出登录|断开ssh)"></a>Linux后台运行(可退出登录|断开ssh)</h1><p>有时候一些Web应用或者脚本啥的希望服务器后台运行，需要运行后关掉终端、退出登录、断开ssh不影响脚本或程序的运行。</p>
+<h2 id="nohup-screen"><a href="#nohup-screen" class="headerlink" title="nohup + screen"></a>nohup + screen</h2><h3 id="1、利用screen创建独立运行（孤儿）的会话session。"><a href="#1、利用screen创建独立运行（孤儿）的会话session。" class="headerlink" title="1、利用screen创建独立运行（孤儿）的会话session。"></a>1、利用screen创建独立运行（孤儿）的会话session。</h3><pre><code class="hljs bash">$ screen -S example1	<span class="hljs-comment"># 创建一个名为example1的session</span></code></pre>
+
+<p>创建完自动进入</p>
+<h3 id="2、在session中利用nohup将应用挂载到后台并将输出重定向到文件"><a href="#2、在session中利用nohup将应用挂载到后台并将输出重定向到文件" class="headerlink" title="2、在session中利用nohup将应用挂载到后台并将输出重定向到文件"></a>2、在session中利用nohup将应用挂载到后台并将输出重定向到文件</h3><pre><code class="hljs bash"><span class="hljs-comment"># 例如ls</span>
+$ nohup ls /home &gt;&gt; /tmp/ls.log 2&gt;&amp;1 &amp;</code></pre>
+
+<h3 id="3、从session暂离"><a href="#3、从session暂离" class="headerlink" title="3、从session暂离"></a>3、从session暂离</h3><p>Ctrl + a d    # 按住Ctrl后先按a再按d。</p>
+<p>因为他是孤儿进程，所以只要不关闭机器或者kill它，他就不会结束，当然，可以自己结束。</p>
+<h2 id="关于nohup"><a href="#关于nohup" class="headerlink" title="关于nohup"></a>关于nohup</h2><p>nohup 命令运行由 Command参数和 Arg参数构成，忽略（SIGHUP）信号。</p>
+<p>nohup 是 no hang up 的缩写，意为不挂断，但没有后台运行，终端不能标准输入。结合&amp;可挂到后台</p>
+<p>在缺省情况下该作业的所有输出都被重定向到一个名为nohup.out的文件中，或者 &gt;&gt;/dev/null 扔掉</p>
+<h3 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h3><pre><code class="hljs bash">nohup [命令]] [参数] [(其他操作)　&amp;]	<span class="hljs-comment"># &amp;表示挂起</span></code></pre>
+
+
+
+<h2 id="关于screen"><a href="#关于screen" class="headerlink" title="关于screen"></a>关于screen</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p>​    Screen是一个全屏窗口管理器，它在多个进程（通常是交互式shell）之间多路传输物理终端。每个虚拟终端提供DEC VT100终端的功能，此外，还提供ANSI X3.64（ISO 6429）和ISO 2022标准中的若干控制功能（例如，插入/删除行和支持多个字符集）。每个虚拟终端都有一个回滚历史缓冲区和一个复制粘贴机制，允许用户在窗口之间移动文本区域。当screen被调用时，它会创建一个包含shell（或指定命令）的窗口，然后就可以不打扰您了，这样您就可以像平常一样使用这个程序了。然后，您可以随时使用其他程序（包括更多shell）创建新的（全屏）窗口，关闭当前窗口，查看活动窗口列表，打开和关闭输出日志记录，在窗口之间复制文本，查看回滚历史记录，在窗口之间切换，所有的窗口都完全独立地运行它们的程序。当程序的窗口当前不可见时，甚至当整个屏幕会话与用户终端分离时，程序仍继续运行。 </p>
+<h3 id="2、语法"><a href="#2、语法" class="headerlink" title="2、语法"></a>2、语法</h3><pre><code class="hljs bash">$ screen [参数] [内容]
+ 
+-A	<span class="hljs-comment"># 将所有的视窗都调整为目前终端机的大小。</span>
+-d   &lt;作业名称&gt;	<span class="hljs-comment"># 将指定的screen作业离线。</span>
+-h   &lt;行数&gt;	<span class="hljs-comment"># 指定视窗的缓冲区行数。</span>
+-m	<span class="hljs-comment"># 即使目前已在作业中的screen作业，仍强制建立新的screen作业。</span>
+-r   &lt;作业名称&gt;	<span class="hljs-comment"># 恢复离线的screen作业。</span>
+-R 　<span class="hljs-comment"># 先试图恢复离线的作业。若找不到离线的作业，即建立新的screen作业。</span>
+-s 　<span class="hljs-comment"># 指定建立新视窗时，所要执行的shell。</span>
+-S   &lt;作业名称&gt;	<span class="hljs-comment"># 指定screen作业的名称。</span>
+-v 　<span class="hljs-comment"># 显示版本信息。</span>
+-x 　<span class="hljs-comment"># 恢复之前离线的screen作业。</span>
+-ls	<span class="hljs-comment"># 显示目前所有的screen作业。</span>
+-wipe	<span class="hljs-comment"># 检查目前所有的screen作业，并删除已经无法使用的screen作业。</span></code></pre>
+
+<h3 id="3、快捷键"><a href="#3、快捷键" class="headerlink" title="3、快捷键"></a>3、快捷键</h3><p><strong>在每个screen session 下，所有命令都以 ctrl+a(C-a) 开始。</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ctrl + a +</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>?</td>
+<td>Help，显示简单说明</td>
+</tr>
+<tr>
+<td>“</td>
+<td>列出终端列表</td>
+</tr>
+<tr>
+<td>A</td>
+<td>重命名终端</td>
+</tr>
+<tr>
+<td>c</td>
+<td>创建新的终端,并切换到该终端</td>
+</tr>
+<tr>
+<td>d</td>
+<td>暂时断开会话,但所有任务都依然执行</td>
+</tr>
+<tr>
+<td>k</td>
+<td>关闭当前终端,并切换到下一个终端(当没终端时 退到原始shell终端)</td>
+</tr>
+<tr>
+<td>n</td>
+<td>切换到下一个终端</td>
+</tr>
+<tr>
+<td>p</td>
+<td>切换到上一个终端</td>
+</tr>
+<tr>
+<td>t</td>
+<td>显示当前时间,和系统的 load</td>
+</tr>
+<tr>
+<td>S</td>
+<td>新建水平线分割终端</td>
+</tr>
+<tr>
+<td>Tab</td>
+<td>水平线切换终端</td>
+</tr>
+<tr>
+<td>X</td>
+<td>关闭当前终端</td>
+</tr>
+<tr>
+<td>+</td>
+<td>扩大当前终端</td>
+</tr>
+<tr>
+<td>-</td>
+<td>缩小当前终端</td>
+</tr>
+<tr>
+<td>[Space]</td>
+<td>窗口切换</td>
+</tr>
+<tr>
+<td>0-9</td>
+<td>在0-9个终端之间切换</td>
+</tr>
+<tr>
+<td>[Ctrl + a]</td>
+<td>最近使用的2个窗口切换</td>
+</tr>
+<tr>
+<td>w</td>
+<td>列出终端列表</td>
+</tr>
+<tr>
+<td>x</td>
+<td>锁住当前窗口，需用用户密码解锁</td>
+</tr>
+<tr>
+<td>z</td>
+<td>把当前会话放到后台执行，用 shell 的 fg 命令则可回去。</td>
+</tr>
+<tr>
+<td>exit</td>
+<td>关闭当前终端</td>
+</tr>
+<tr>
+<td>:screen <command></td>
+<td>新建 screen 终端，并运行命令 <command></td>
+</tr>
+<tr>
+<td>:resize <height></td>
+<td>改变当前窗口高度为 <height></td>
+</tr>
+<tr>
+<td>:quit</td>
+<td>退出 screen 关闭所有 screen 终端，结束其中所有任务</td>
+</tr>
+</tbody></table>
+<p>选择模式下操作</p>
+<table>
+<thead>
+<tr>
+<th>Ctrl + a + <Esc> (进入选择模式)</th>
+<th>选择模式下功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><PageUp>或 Ctrl-u</td>
+<td>光标上移一页</td>
+</tr>
+<tr>
+<td><PageDown> 或 Ctrl-d</td>
+<td>光标下移一页</td>
+</tr>
+<tr>
+<td><Left> 或 h</td>
+<td>光标左移一格</td>
+</tr>
+<tr>
+<td><Down> 或 j</td>
+<td>光标下移一行</td>
+</tr>
+<tr>
+<td><Up> 或 k</td>
+<td>光标上移一行</td>
+</tr>
+<tr>
+<td><Right> 或 l</td>
+<td>光标右移一格</td>
+</tr>
+<tr>
+<td><Space></td>
+<td>选择开始，选择结束</td>
+</tr>
+<tr>
+<td><Esc></td>
+<td>退出选择模式</td>
+</tr>
+<tr>
+<td>Ctrl-a ]</td>
+<td>粘贴选择的内容</td>
+</tr>
+</tbody></table>
+<h3 id="4、例"><a href="#4、例" class="headerlink" title="4、例:"></a>4、例:</h3><pre><code class="hljs bash">screen -S name	<span class="hljs-comment"># 新建一个叫name的session</span>
+screen -ls		<span class="hljs-comment"># 列出当前所有的session</span>
+screen -r name	<span class="hljs-comment"># 回到name这个session</span>
+screen -d name	<span class="hljs-comment"># 远程detach某个session</span>
+screen -d -r name	<span class="hljs-comment"># 结束当前session并回到name这个session</span>
+[Ctrl + a + d]	<span class="hljs-comment"># 暂离session (回到之前的shell)</span></code></pre>
+
+
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/21/hello-world/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/13/8086%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E9%80%9F%E6%9F%A5%E8%A1%A8/">
+                        <span class="hidden-mobile">8086汇编指令速查表</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>盖世神伦</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Blog</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,966 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/head.jpg">
+  <link rel="icon" type="image/png" href="/images/head.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="1|2|3|4|5">
+  <meta name="author" content="盖世神论">
+  <meta name="keywords" content="">
+  <title>8086汇编指令速查表 - My Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gaishishenlun.github.io","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":64,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>盖世神伦</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                文档
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://space.bilibili.com/102541140">
+                    
+                    Bilibili
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43343078">
+                    
+                    CSDN
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="8086汇编指令速查表">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-13 17:14" pubdate>
+        2020-12-13 17:14:02
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">8086汇编指令速查表</h1>
+            
+            <div class="markdown-body">
+              <h1 id="汇编指令速查表"><a href="#汇编指令速查表" class="headerlink" title="汇编指令速查表"></a>汇编指令速查表</h1><h2 id="一、数据传送"><a href="#一、数据传送" class="headerlink" title="一、数据传送"></a>一、数据传送</h2><p><strong>1、MOV</strong>    赋值指令</p>
+<ul>
+<li><p><strong>描述</strong>：赋值指令</p>
+</li>
+<li><p><strong>格式</strong>：MOV  DST,SRC</p>
+</li>
+<li><p><strong>功能</strong>： DST &lt;= SRC</p>
+</li>
+<li><p><strong>注意</strong>： ①不能DST,SRC都是存储器，这也是所有双操作数指令的通用要求。</p>
+<p>② 但其中一个是段寄存器时，另一个操作数必须是数据寄存器。</p>
+<p>③不允许往CS传递数据</p>
+<p>④将立即数送存储时，要指定操作数类型。BYTE PTR ,WORD PTR, DWORD PTR</p>
+<p>⑤不影响PSW</p>
+</li>
+</ul>
+<p><strong>2、PUSH</strong></p>
+<ul>
+<li><strong>描述</strong>：入栈指令</li>
+<li><strong>格式</strong>：PUSH SRC</li>
+<li><strong>功能</strong>：将SRC入栈</li>
+<li><strong>注意</strong>：只能是对“字”操作。</li>
+</ul>
+<p><strong>3、POP</strong></p>
+<ul>
+<li><strong>描述</strong>：出栈指令</li>
+<li><strong>格式</strong>：POP DST</li>
+<li><strong>功能</strong>：将栈顶元素出栈赋值给DST</li>
+</ul>
+<p><strong>4、XCHG</strong></p>
+<ul>
+<li><strong>描述</strong>：数据交换指令</li>
+<li><strong>格式</strong>：SCHG DST,SRC</li>
+<li><strong>功能</strong>：将DST.SRC的值进行交换</li>
+<li><strong>注意</strong>：不能DST,SRC都是存储器，这也是所有双操作数指令的通用要求。</li>
+</ul>
+<p><strong>5、IN</strong></p>
+<ul>
+<li><strong>格式</strong>：IN DST,SRC</li>
+<li><strong>功能</strong>：从SRC端口读取一个字节/字到DST中。</li>
+</ul>
+<p><strong>6、OUT</strong></p>
+<ul>
+<li><strong>格式</strong>：OUT DST,SRC</li>
+<li><strong>功能</strong>：将SRC中的数据送到DST短空中</li>
+</ul>
+<p><strong>7、XLAT</strong></p>
+<ul>
+<li><strong>描述</strong>：取表指令</li>
+<li><strong>格式</strong>：XLAT</li>
+<li>功能：以DS:[BX+AL]为地址提取一个字节的数据送到AL中</li>
+</ul>
+<p><strong>8、LEA</strong></p>
+<ul>
+<li><strong>格式</strong>：LEA  REG,MEM</li>
+<li><strong>功能</strong>：取MEM的偏移地址送到REG中。</li>
+</ul>
+<p><strong>9、LDS</strong> </p>
+<ul>
+<li><strong>格式</strong>：LDS reg,mem</li>
+<li><strong>功能</strong>：是把mem指向的地址,高位存放在DS中,低位存放在reg中。</li>
+</ul>
+<p><strong>10、LES</strong></p>
+<ul>
+<li><strong>格式</strong>：LES reg,mem</li>
+<li><strong>功能</strong>：是把mem指向的地址,高位存放在ES中,低位存放在reg中。</li>
+</ul>
+<p><strong>11、PUSHF</strong>  </p>
+<ul>
+<li><strong>格式</strong>：PUSHF</li>
+<li><strong>功能</strong>：将PSW进栈</li>
+</ul>
+<p><strong>12、POPF</strong>    </p>
+<ul>
+<li><strong>格式</strong>：POPF</li>
+<li><strong>功能</strong>：将栈顶元素送到PSW</li>
+</ul>
+<p><strong>13、LAHF</strong>     </p>
+<ul>
+<li><strong>格式</strong>：LAHF</li>
+<li><strong>功能</strong>：将PSW的低八位送到AH中</li>
+</ul>
+<p><strong>14、SAHF</strong>     </p>
+<ul>
+<li><strong>格式</strong>：SAHF</li>
+<li><strong>功能</strong>：将AH写入PSW的低八位</li>
+</ul>
+<h2 id="二、算术"><a href="#二、算术" class="headerlink" title="二、算术"></a>二、算术</h2><p><strong>1、ADD</strong></p>
+<ul>
+<li><strong>描述</strong>：加法指令</li>
+<li><strong>格式</strong>：ADD  DST,SRC</li>
+<li><strong>功能</strong>： DST &lt;= DST+REC</li>
+</ul>
+<p><strong>2、ADC</strong></p>
+<ul>
+<li><strong>格式</strong>：ADC  DST,SRC</li>
+<li><strong>功能</strong>：DST &lt;= DST + REC + CF</li>
+</ul>
+<p><strong>3、INC</strong></p>
+<ul>
+<li><strong>格式</strong>： INC DST</li>
+<li><strong>功能</strong>：DST &lt;= DST + 1</li>
+</ul>
+<p><strong>4、SUB</strong></p>
+<ul>
+<li><strong>格式</strong>：SUB  DSTSRC</li>
+<li><strong>功能</strong>： DST &lt;= DST - SRC</li>
+</ul>
+<p><strong>5、SBB</strong></p>
+<ul>
+<li><strong>格式</strong>：SBB  DST,SRC</li>
+<li><strong>功能</strong>：DST &lt;= DST - SRC - CF</li>
+</ul>
+<p><strong>6、DEC</strong></p>
+<ul>
+<li><strong>格式</strong>： DEC DST</li>
+<li><strong>功能</strong>：DST &lt;= DST - 1</li>
+</ul>
+<p><strong>7、NEG</strong>  </p>
+<ul>
+<li><strong>格式</strong>：NEG REG</li>
+<li><strong>功能</strong>：求补，即REG中的各位取反，然后 + 1。</li>
+</ul>
+<p><strong>8、CMP</strong></p>
+<ul>
+<li><strong>格式</strong>：CMP  DST,SRC</li>
+<li><strong>功能</strong>：DST - REG 结果不保存，但是状态保存在PSW中。</li>
+</ul>
+<p><strong>9、MUL</strong></p>
+<ul>
+<li><strong>描述</strong>：无符号数乘法</li>
+<li><strong>格式</strong>：MUL SRC</li>
+<li><strong>功能</strong>：①字节操作：(AX) &lt;=(AL) * (SRC)</li>
+</ul>
+<p>​         ②字操作：(DX,AX) &lt;= (AX) *(SRC)</p>
+<p>​         ③双字操作：(EDX,EAX) &lt;= (EAX) *(SRC)</p>
+<p><strong>10、IMUL</strong></p>
+<ul>
+<li><strong>描述</strong>：有符号数乘法</li>
+<li><strong>格式</strong>：IMUL  SRC</li>
+<li><strong>功能</strong>：DST &lt;= DST * SRC</li>
+</ul>
+<p><strong>11、DIV</strong></p>
+<ul>
+<li><strong>描述</strong>：无符号数除法</li>
+<li><strong>格式</strong>：DIV  SRC</li>
+<li><strong>功能</strong>：①字节操作：(AH) &lt;= (AX)/(SRC)的余数;(AL) &lt;= (AX)/(SRC)的商</li>
+</ul>
+<p>​         ②字操作：(DX) &lt;= (DX,AX)/(SRC)的余数;(AX) &lt;= (DX,AX)/(SRC)的商</p>
+<p>​         ③双字操作：(EDX) &lt;= (EDX,EAX)/(SRC)的余数;(EAX) &lt;= (EDX,EAX)/(SRC)的商</p>
+<p><strong>12、IDIV</strong></p>
+<ul>
+<li><strong>描述</strong>：有符号数除法</li>
+<li><strong>格式</strong>：IDIV  SRC</li>
+<li><strong>功能</strong>：①字节操作：(AH) &lt;= (AX)/(SRC)的余数;(AL) &lt;= (AX)/(SRC)的商</li>
+</ul>
+<p>​         ②字操作：(DX) &lt;= (DX,AX)/(SRC)的余数;(AX) &lt;= (DX,AX)/(SRC)的商</p>
+<p>​         ③双字操作：(EDX) &lt;= (EDX,EAX)/(SRC)的余数;(EAX) &lt;= (EDX,EAX)/(SRC)的商</p>
+<p><strong>13、CBW</strong></p>
+<ul>
+<li><strong>格式</strong>：CBW</li>
+<li><strong>功能</strong>：将AL保持原值（<strong>有符号数</strong>）扩展到AX。</li>
+<li><strong>注意</strong>：此时是将AL的值看为<strong>有符号数</strong>，根据AL的最高位（符号位）来决定AH是00H还是FFH</li>
+</ul>
+<p><strong>14、CWD</strong></p>
+<ul>
+<li><strong>格式</strong>：CWD</li>
+<li><strong>功能</strong>：将AX保持原值（有符号数）扩展到DX,AX。</li>
+<li><strong>注意</strong>：此时是将AX的值看为<strong>有符号数</strong>，根据AX的最高位（符号位）来决定DX是0000H还是FFFFH</li>
+</ul>
+<h2 id="三、逻辑"><a href="#三、逻辑" class="headerlink" title="三、逻辑"></a>三、逻辑</h2><p><strong>1、AND</strong></p>
+<ul>
+<li><strong>描述</strong>：“与”逻辑运算</li>
+<li><strong>格式</strong>：AND  DST,SRC</li>
+<li><strong>功能</strong>：DST &lt;= DST AND SRC 将DST和REG对应各位进行“与”运算后结果保留于DST</li>
+</ul>
+<p><strong>2、OR</strong></p>
+<ul>
+<li><strong>描述</strong>：“或”逻辑运算</li>
+<li><strong>格式</strong>：OR  DST,SRC</li>
+<li><strong>功能</strong>：DST &lt;= DST OR SRC  将DST和REG对应各位进行“或”运算后结果保留于DST</li>
+</ul>
+<p><strong>3、NOT</strong></p>
+<ul>
+<li><strong>描述</strong>：“非”逻辑运算</li>
+<li><strong>格式</strong>：NOT  DST</li>
+<li><strong>功能</strong>：DST &lt;= NOT DST  将DST各位”取反”结果保留于DST</li>
+</ul>
+<p><strong>4、XOR</strong></p>
+<ul>
+<li><strong>描述</strong>：“异或”逻辑运算</li>
+<li><strong>格式</strong>：XOR  DST,SRC</li>
+<li><strong>功能</strong>：  DST &lt;= DST XOR SRC  将DST和SRC对应各位进行“异或”运算后结果保留于DST</li>
+</ul>
+<p><strong>5、TEST</strong></p>
+<ul>
+<li><strong>描述</strong>：“与”逻辑运算，当只影响PSW，不保留运算结果。</li>
+<li><strong>格式</strong>：TEST  DST,SRC</li>
+<li><strong>功能</strong>：DST AND SRC  将DST和SRC对应各位进行“与”运算，结果状态影响PSW，但不该表DST,SRC的值。</li>
+</ul>
+<p><strong>6、SHL</strong></p>
+<ul>
+<li><strong>描述</strong>：逻辑左移</li>
+<li><strong>格式</strong>：SHL  DST，1/CL</li>
+<li><strong>功能</strong>：将DST顺序左移1位或CL寄存器中指定的位数。左移一位时，DST的最高位移入进位标志位CF，最低位补零。</li>
+</ul>
+<p><strong>7、SAL</strong></p>
+<ul>
+<li><strong>描述</strong>：算术左移</li>
+<li><strong>格式</strong>：SAL  SRC，1/CL</li>
+<li><strong>功能</strong>：将SRC顺序左移1位或CL寄存器中指定的位数。左移一位时，SRC的最高位移入进位标志位CF，最低位补零。</li>
+</ul>
+<p><strong>8、SHR</strong></p>
+<ul>
+<li><strong>描述</strong>：逻辑右移</li>
+<li><strong>格式</strong>：SHR SRC，1/CL</li>
+<li><strong>功能</strong>：将SRC顺序右移1位或CL寄存器指定的位数。逻辑右移1位时，SRC的最低位移到进位标志位CF,最高位补零。</li>
+</ul>
+<p><strong>9、SAR</strong></p>
+<ul>
+<li><strong>描述</strong>：算术右移</li>
+<li><strong>格式</strong>：SAR  SRC，1/CL</li>
+<li><strong>功能</strong>：将SRC顺序右移1位或CL寄存器指定的位数。逻辑右移1位时，SRC的最低位移到进位标志位CF,最高位用原先最高位的值填充。</li>
+</ul>
+<p><strong>10、ROL</strong></p>
+<ul>
+<li><strong>描述</strong>：循环左移</li>
+<li><strong>格式</strong>：ROL  SRC,1/CL</li>
+<li><strong>功能</strong>：将SRC顺序左移1位或CL寄存器指定的位数。循环左移1位时，SRC的最高位移到最低位，并且最高位同时移入标志位CF。</li>
+</ul>
+<p><strong>11、ROR</strong></p>
+<ul>
+<li><strong>描述</strong>：循环右移</li>
+<li><strong>格式</strong>：ROR  SRC,1/CL</li>
+<li><strong>功能</strong>：将SRC顺序右移1位或CL寄存器指定的位数。循环左移1位时，SRC的最低位移到最高位，并且最低位同时移入标志位CF。</li>
+</ul>
+<p><strong>12、RCL</strong></p>
+<ul>
+<li><strong>描述</strong>：带进位循环左移</li>
+<li><strong>格式</strong>：RCL  SRC,1/CL</li>
+<li><strong>功能</strong>：将SRC顺序左移1位或CL寄存器指定的位数。带进位循环左移1位时，原先状态位CF的值移入SRC的最低位，SRC的最高位移入状态位CF。</li>
+</ul>
+<p><strong>13、RCR</strong></p>
+<ul>
+<li><strong>描述</strong>：带进位循环右移</li>
+<li><strong>格式</strong>：RCR  SRC,1/CL</li>
+<li><strong>功能</strong>：将SRC顺序右移1位或CL寄存器指定的位数。带进位循环右移1位时，原先状态位CF的值移入SRC的最高位，SRC的最低位移入状态位CF。</li>
+</ul>
+<h2 id="四、串指令"><a href="#四、串指令" class="headerlink" title="四、串指令"></a>四、串指令</h2><p>当方向标志位DF = 0时，DI,SI+    当DF = 1时，DI,SI-        ES:DI  DS:SI</p>
+<p><strong>1、MOVS</strong>      </p>
+<ul>
+<li><p><strong>格式</strong>：①MOVS  DST,SRC   ②MOVSB（字节）   ③MOVSW（字）   ④MOVSD（双字）</p>
+</li>
+<li><p><strong>功能</strong>： ①字节操作：[ES:DI]&lt;=[DS:SI] ,SI&lt;=SI +/- 1</p>
+<p>②字操作：[ES:DI]&lt;=[DS:SI]] ,SI &lt;= SI +/- 2</p>
+<p>③双字操作：[ES:DI]&lt;=[DS:SI] ,SI &lt;= SI +/- 4</p>
+</li>
+</ul>
+<p><strong>2、CMPS</strong></p>
+<ul>
+<li><p><strong>格式：①</strong>CMPSB（字节）  ②CMPSW（字）   ③CMPSD（双字）</p>
+</li>
+<li><p><strong>功能：</strong> ①字节操作：[DS:SI] - [ES:DI] ,SI&lt;=SI +/- 1</p>
+<p>②字操作：[DS:SI] - [ES:DI] ,SI &lt;= SI +/- 2</p>
+<p>③双字操作：[DS:SI] - [ES:DI] ,SI &lt;= SI +/- 4</p>
+</li>
+</ul>
+<p><strong>3、LODS</strong></p>
+<ul>
+<li><p><strong>格式</strong>：①LODSW（字）   ③LODSD（双字）</p>
+</li>
+<li><p><strong>功能</strong>： ①字节操作：AL &lt;= [DS:SI] ,SI&lt;=SI +/- 1</p>
+<p>②字操作：AX &lt;= [DS:SI] ,SI &lt;= SI +/- 2</p>
+<p>③双字操作：EAX &lt;= [DS:SI] ,SI &lt;= SI +/- 4</p>
+</li>
+</ul>
+<p><strong>4、STOS</strong></p>
+<ul>
+<li><p><strong>格式</strong>：①STOSB（字节）   ②STOSW（字）   ③STOSD（双字）</p>
+</li>
+<li><p><strong>功能</strong>： ①字节操作：[DS:SI] &lt;= AL  ,SI&lt;=SI +/- 1</p>
+<p>②字操作：[DS:SI] &lt;= AX ,SI &lt;= SI +/- 2</p>
+<p>③双字操作：[DS:SI] &lt;= EAX  ,SI &lt;= SI +/- 4</p>
+</li>
+</ul>
+<p><strong>5、SCAS</strong></p>
+<ul>
+<li><strong>格式：①</strong>SCASB（字节）   <strong>②</strong>SCASW（字）   <strong>③</strong>SCASD（双字）</li>
+<li><strong>功能：</strong>①字节操作： AL - [DS:SI]  ,SI&lt;=SI +/- 1</li>
+</ul>
+<p>​         ②字操作：AX - [DS:SI]  ,SI &lt;= SI +/- 2</p>
+<p>​         ③双字操作：EAX - [DS:SI]   ,SI &lt;= SI +/- 4</p>
+<p><strong>6、REP</strong></p>
+<ul>
+<li><strong>格式：</strong>REP  string primitive(MOVS,LODS,STOS,INS和OUTS）</li>
+<li>**功能**：****①如果CX = 0退出，否则继续运行以下操作</li>
+</ul>
+<p>​         ②CX &lt;= CX - 1</p>
+<p>​         ③执行以后串操作</p>
+<p>​         ④重复 ①~③</p>
+<p><strong>7、REPE/REPZ</strong></p>
+<ul>
+<li><strong>格式：</strong>REPE/REPZ  string primitive(CMPS或SCAS）</li>
+<li><strong>功能：</strong>①如果CX = 0 或 ZF = 0 退出，否则继续运行以下操作</li>
+</ul>
+<p>​         ②CX &lt;= CX - 1</p>
+<p>​         ③执行以后串操作</p>
+<p>​         ④重复 ①~③</p>
+<p>8、REPNE/REPNZ</p>
+<ul>
+<li><strong>格式：</strong>REPNE/REPNZ  string primitive(CMPS或SCAS）</li>
+<li><strong>功能：</strong>①如果CX = 0 或 ZF = 1 退出，否则继续运行以下操作</li>
+</ul>
+<p>​         ②CX &lt;= CX - 1</p>
+<p>​         ③执行以后串操作</p>
+<p>​         ④重复 ①~③</p>
+<h2 id="五、无条件转移"><a href="#五、无条件转移" class="headerlink" title="五、无条件转移"></a>五、无条件转移</h2><p><strong>1、JMP</strong></p>
+<ul>
+<li><strong>格式</strong>：JMP ADDRESS</li>
+<li><strong>功能</strong>： 无条件跳转到 ADDRESS</li>
+</ul>
+<h2 id="六、条件转移"><a href="#六、条件转移" class="headerlink" title="六、条件转移"></a>六、条件转移</h2><h3 id="1、根据PSW"><a href="#1、根据PSW" class="headerlink" title="1、根据PSW"></a><strong>1、根据PSW</strong></h3><p><strong>1、JZ</strong></p>
+<ul>
+<li><strong>格式</strong>：JZ  EX</li>
+<li><strong>功能</strong>：当ZF = 1时，跳转到EX</li>
+</ul>
+<p><strong>2、JNZ</strong></p>
+<ul>
+<li><strong>格式</strong>：JNZ  EX</li>
+<li><strong>功能</strong>：当ZF = 0时，跳转到EX</li>
+</ul>
+<p><strong>3、JC</strong></p>
+<ul>
+<li><strong>格式</strong>：JC  EX</li>
+<li><strong>功能</strong>：当CF = 1时，跳转到EX</li>
+</ul>
+<p><strong>4、JNC</strong></p>
+<ul>
+<li><strong>格式</strong>：JNC  EX</li>
+<li><strong>功能</strong>：当CF = 0时，跳转到EX</li>
+</ul>
+<p><strong>5、JO</strong></p>
+<ul>
+<li><strong>格式</strong>：JO  EX</li>
+<li><strong>功能</strong>：当OF = 1时，跳转到EX</li>
+</ul>
+<p><strong>6、JNO</strong></p>
+<ul>
+<li><strong>格式</strong>：JNO  EX</li>
+<li><strong>功能</strong>：当OF = 0时，跳转到EX</li>
+</ul>
+<p><strong>7、JS</strong></p>
+<ul>
+<li><strong>格式</strong>：JS  EX</li>
+<li><strong>功能</strong>：当SF = 1时，跳转到EX</li>
+</ul>
+<p><strong>8、JNS</strong></p>
+<ul>
+<li><strong>格式</strong>：JNS  EX</li>
+<li><strong>功能</strong>：当SF = 0时，跳转到EX</li>
+</ul>
+<h3 id="2、比较两个无符号数后"><a href="#2、比较两个无符号数后" class="headerlink" title="2、比较两个无符号数后"></a><strong>2、比较两个无符号数后</strong></h3><p><img src="https://img-blog.csdn.net/20180614191534609?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTc5MzM2MA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" srcset="/img/loading.gif" alt="img"></p>
+<p><strong>#  N ：不等于  A：大于  B ： 小于  E ：等于</strong></p>
+<h3 id="3、比较两个有符号数后"><a href="#3、比较两个有符号数后" class="headerlink" title="3、比较两个有符号数后"></a><strong>3、比较两个有符号数后</strong></h3><p><img src="https://img-blog.csdn.net/20180614191644382?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTc5MzM2MA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" srcset="/img/loading.gif" alt="img"></p>
+<p><strong>#  N ：不等于  G：大于  L ： 小于  E ：等于</strong></p>
+<h3 id="4、JCXZ"><a href="#4、JCXZ" class="headerlink" title="4、JCXZ"></a>4、JCXZ</h3><ul>
+<li><strong>格式</strong>： JCXZ EX</li>
+<li><strong>功能</strong>：若 CX = 0，则跳转到EX</li>
+</ul>
+<h2 id="七、循环"><a href="#七、循环" class="headerlink" title="七、循环"></a>七、循环</h2><ul>
+<li>LOOP</li>
+<li>LOOPE/LOOPZ</li>
+<li>LOOPNE/LOOPNZ</li>
+</ul>
+<h2 id="八、子程序"><a href="#八、子程序" class="headerlink" title="八、子程序"></a>八、子程序</h2><p><strong>1、CALL</strong></p>
+<ul>
+<li><strong>格式</strong>：①CALL EX/NEAR  PTR  EX</li>
+</ul>
+<p>​         ②CALL  FAR  PTR  EX </p>
+<ul>
+<li><strong>功能</strong>：①将IP进栈；将子程序的入口地址的位移量 =&gt;IP</li>
+</ul>
+<p>​         ②将CS入栈；将IP入栈；将子程序入口地址偏移量 =&gt;IP；将子程序的段地址 =&gt;CS</p>
+<p><strong>2、RET</strong></p>
+<ul>
+<li><strong>格式</strong>：RET (num)</li>
+<li><strong>功能</strong>：①将栈顶元素出栈 =&gt; IP</li>
+</ul>
+<p>​         ②将SP向高地址移动num位。</p>
+<p><strong>3、RETF</strong></p>
+<ul>
+<li><strong>格式</strong>：RETF (num)</li>
+<li><strong>功能</strong>：①将栈顶元素出栈 =&gt; IP</li>
+</ul>
+<p>​         ②将栈顶元素出栈 =&gt;CS</p>
+<p>​         ③将SP向高地址移动num位。</p>
+<h2 id="九、中断"><a href="#九、中断" class="headerlink" title="九、中断"></a>九、中断</h2><ul>
+<li>INT XX</li>
+<li>IRET</li>
+</ul>
+<h2 id="十、空操作"><a href="#十、空操作" class="headerlink" title="十、空操作"></a>十、空操作</h2><ul>
+<li>NOP</li>
+</ul>
+<h2 id="十一、标志"><a href="#十一、标志" class="headerlink" title="十一、标志"></a>十一、标志</h2><p><strong>1、CLC</strong></p>
+<ul>
+<li><strong>格式</strong>：CLC</li>
+<li><strong>功能</strong>：令CF=0</li>
+</ul>
+<p><strong>2、STC</strong>  </p>
+<ul>
+<li><strong>格式</strong>：STC </li>
+<li><strong>功能</strong>：令CF=1</li>
+</ul>
+<p><strong>3、CMC</strong> </p>
+<ul>
+<li><strong>格式</strong>：CMC </li>
+<li><strong>功能</strong>：令CF取反。</li>
+</ul>
+<p><strong>4、CLD</strong> </p>
+<ul>
+<li><strong>格式</strong>：CLD </li>
+<li><strong>功能</strong>：令DF = 0</li>
+</ul>
+<p><strong>5、STD</strong> </p>
+<ul>
+<li><strong>格式</strong>：STD </li>
+<li><strong>功能</strong>：令DF = 1</li>
+</ul>
+<p><strong>6、CLI</strong>  </p>
+<ul>
+<li><strong>格式</strong>：CLI</li>
+<li><strong>功能</strong>：禁止发生中断</li>
+</ul>
+<p><strong>7、STI</strong> </p>
+<ul>
+<li><strong>格式</strong>：STI </li>
+<li><strong>功能</strong>： 允许发生中断</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B4%E7%90%86/">整理</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/16/%20Linux%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux后台运行程序</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/20/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+                        <span class="hidden-mobile">Git常用命令</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>盖世神伦</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Blog</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
