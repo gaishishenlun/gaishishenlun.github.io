@@ -170,18 +170,7 @@
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[]]></content>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>link</title>
-    <link href="/"/>
-    <url>/</url>
-    
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<p>CTF训练网站：<br><a href="https://buuoj.cn/">https://buuoj.cn</a>    BUUCTF（强烈推荐！！！！但不适合新手）<br><a href="https://www.ichunqiu.com/competition">https://www.ichunqiu.com/competition</a>    i春秋（有钱）<br><a href="https://adworld.xctf.org.cn/">https://adworld.xctf.org.cn/</a>    xctf（全世界知名）<br><a href="https://www.jarvisoj.com/">https://www.jarvisoj.com/</a>    浙大OJ（pwn手入门推荐）<br><a href="https://cgctf.nuptsast.com/">https://cgctf.nuptsast.com/</a>    南邮OJ（web、逆向入门推荐）<br><a href="http://www.shiyanbar.com/upgrade.htmlb">http://www.shiyanbar.com/upgrade.htmlb</a>    实验吧（国庆后开放）<br><a href="https://new.bugku.com/challenges">https://new.bugku.com/challenges</a>    BugKu（这里的题是不是太简单了？）flag{340}<br><a href="https://www.ctfhub.com/#/index">https://www.ctfhub.com/#/index</a>    CTFhub</p><p>友联<br><a href="https://github.com/zstucsat">https://github.com/zstucsat</a>    ZSTU 计算机协会（github）<br><a href="http://www.zstuca.club/">http://www.zstuca.club</a>    ZSTU 计算机协会（官网）<br><a href="https://github.com/vidar-team">https://github.com/vidar-team</a>    Vidar-Team（github）<br><a href="https://vidar.club/">https://vidar.club/</a>    Vidar-Team（官网）<br><a href="https://www.klmyssn.com/">https://www.klmyssn.com/</a>    十三年</p><p>CTF教程和writeup：<br><a href="https://www.bilibili.com/video/av61581917">https://www.bilibili.com/video/av61581917</a>    【浙理ctf】pwn+逆向<br><a href="https://xz.aliyun.com/t/4029#toc-2">https://xz.aliyun.com/t/4029#toc-2</a>    Upload-labs 20关通关笔记<br><a href="https://www.sqlsec.com/2018/01/ctfimg.html">https://www.sqlsec.com/2018/01/ctfimg.html</a>    CTF中图片隐写的一些整理总结<br><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/off_by_one-zh/">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/off_by_one-zh/</a>    ctf wiki<br><a href="https://www.cnblogs.com/ZHijack/">https://www.cnblogs.com/ZHijack/</a>    zhi jack （pwn for Jarvis OJ）</p><p>工具<br><a href="http://tool.bugku.com/?wafcloud=2">http://tool.bugku.com/?wafcloud=2</a>    bugku tool<br><a href="https://cryptii.com/pipes/hex-to-ascii85">https://cryptii.com/pipes/hex-to-ascii85</a>    cryptii<br><a href="https://www.ctftools.com/down/">https://www.ctftools.com/down/</a>    ctf tools<br><a href="https://gchq.github.io/CyberChef/">https://gchq.github.io/CyberChef/</a>    cyber chef<br><a href="https://merricx.github.io/qrazybox/">https://merricx.github.io/qrazybox/</a>    Qrazy Box<br><a href="http://www.atoolbox.net/">http://www.atoolbox.net/</a>        atoolbox</p><p>Blog<br><a href="https://annevi.cn/posts/">https://annevi.cn/posts/</a>    Annevi大师傅(Web)<br><a href="https://196011564.github.io/">https://196011564.github.io/</a>    咲夜南梦<br><a href="http://imagin.vip/">http://imagin.vip/</a>        image<br><a href="https://www.zhaoj.in/">https://www.zhaoj.in/</a>    zhaoj大师傅</p><p><a href="https://elixir.bootlin.com/linux/latest/source">https://elixir.bootlin.com/linux/latest/source</a>    Linux内核代码</p>]]></content>
     
   </entry>
   
@@ -203,7 +192,7 @@
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<p>asdasd</p>]]></content>
     
   </entry>
   
