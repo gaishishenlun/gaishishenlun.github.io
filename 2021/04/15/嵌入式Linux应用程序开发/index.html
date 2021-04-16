@@ -208,7 +208,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.5k 字
+      4.4k 字
     </span>
   
 
@@ -218,7 +218,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      58
+      56
        分钟
     </span>
   
@@ -813,25 +813,23 @@ Alarm clock</code></pre>
 
 <ul>
 <li><p>使用TCP协议socket编程流程图</p>
-<pre><code class="hljs mermaid">%%&#123;init: &#123;&#39;securityLevel&#39;: &#39;loose&#39;, &#39;theme&#39;:&#39;base&#39;&#125;&#125;%%
-flowchart TB
-A1[服务器端\nsocket] --&gt; B1[bind] --&gt; C1[listen] --&gt; D1[accept] --&gt; E1[recv&#x2F;recvfrom] --&gt; F1[send&#x2F;sendto] ---&gt; G1[close]
-A2[客户端\nsocket] --&gt; Con1[connect] --&gt; ClS[send&#x2F;sendto] --&gt; E2[recv&#x2F;recvfrom] --&gt; G2[close]
-A2 --&gt; B2[bind] --&gt; Con1 --&gt; D1
-ClS --&gt; E1
-F1 --&gt; E2</code></pre></li>
+<pre class="mermaid">  graph TB
+    A1[服务器端\nsocket] --> B1[bind] --> C1[listen] --> D1[accept] --> E1[recv/recvfrom] --> F1[send/sendto] ---> G1[close]
+    A2[客户端\nsocket] --> Con1[connect] --> ClS[send/sendto] --> E2[recv/recvfrom] --> G2[close]
+    A2 --> B2[bind] --> Con1 --> D1
+    ClS --> E1
+    F1 --> E2</pre></li>
 <li><p>使用UDP协议socket编程流程图(图中使用send(recv)或sendto(recvfrom)发送(接收)消息)</p>
 </li>
 </ul>
-<pre><code class="hljs mermaid">%%&#123;init: &#123;&#39;securityLevel&#39;: &#39;loose&#39;, &#39;theme&#39;:&#39;base&#39;&#125;&#125;%%
-flowchart TD
-listen ---&gt; RF1[recvfrom] --&gt; ST1[sendto] ---&gt;CLS1
-S1[服务器端\nsocket] --&gt; listen --&gt; accept --&gt; Re1[recv] --&gt; Se1[send] ---&gt;CLS1[close]
-S2[客户端\nsocket] ---&gt; connect --&gt; Se2[send] --&gt; Re2[recv] --&gt; CLS2[close]
-S2 ----&gt; ST2[sendto] ----&gt; RF2[recvfrom] --&gt; CLS2
-connect --&gt; accept
-Se2 --&gt; Re1
-Se1 --&gt; Re2</code></pre>
+<pre class="mermaid">  graph TB
+    listen ---> RF1[recvfrom] --> ST1[sendto] --->CLS1
+    S1[服务器端\nsocket] ---> listen --> accept --> Re1[recv] --> Se1[send] --->CLS1[close]
+    S2[客户端\nsocket] ---> connect --> Se2[send] --> Re2[recv] --> CLS2[close]
+    S2 ----> ST2[sendto] ----> RF2[recvfrom] --> CLS2
+    connect --> accept
+    Se2 --> Re1
+    Se1 --> Re2</pre>
             </div>
             <hr>
             <div>
@@ -950,8 +948,8 @@ Se1 --&gt; Re2</code></pre>
   
 
   
-</footer>
 
+</footer>
 <!-- SCRIPTS -->
 
   <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
@@ -1062,6 +1060,16 @@ Se1 --&gt; Re2</code></pre>
 
 <!-- 主题的启动项 保持在最底部 -->
 <script  src="/js/boot.js" ></script>
+
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
 
 
 
