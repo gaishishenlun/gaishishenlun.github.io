@@ -17,9 +17,25 @@
   <meta name="description" content="1|2|3|4|5">
   <meta name="author" content="盖世神论">
   <meta name="keywords" content="">
-  <title>归档 - My Blog</title>
+  <title>mysql/mariadb - My Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -170,9 +186,54 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="mysql/mariadb">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-14 17:47" pubdate>
+        2021-05-14 17:47:41
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      771 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
 
             
           </div>
@@ -185,40 +246,163 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 10 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/2021/01/16/%20Linux%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Linux后台运行程序</span>
-      <time style="float: right;">01-16</time>
-    </a>
-  
-</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">mysql/mariadb</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Mysql-Mariadb-简单操作"><a href="#Mysql-Mariadb-简单操作" class="headerlink" title="Mysql/Mariadb 简单操作"></a>Mysql/Mariadb 简单操作</h1><h2 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h2><pre><code class="hljs mysql">update user set password&#x3D;password(&#39;123456&#39;) where user&#x3D;&#39;root&#39;;	# 修改修改密码
+grant all privileges on *.* to &#39;用户名&#39;@&#39;%&#39; identified by &#39;密码&#39; with grant option;	# 高权限用户，允许所有IP连接，用户可以不存在
+flush privileges;	# 刷新数据库
+use dbname;			# 打开数据库(dbname)
+show databases;		# 显示所有数据库
+show tables;		# 显示所有表
+desc T_name;		# 显示表(T_name)的字段信息	
+create database dbname);		# 创建名为dbname的数据库</code></pre>
 
 
 
+<h2 id="数据库与数据表操作"><a href="#数据库与数据表操作" class="headerlink" title="数据库与数据表操作"></a>数据库与数据表操作</h2><h3 id="1、导入导出"><a href="#1、导入导出" class="headerlink" title="1、导入导出"></a>1、导入导出</h3><pre><code class="hljs bash">$ mysqldump -uroot -p密码 数据库名 &gt; D:/备份文件名.sql		<span class="hljs-comment"># 导出数据库</span>
+$ mysql -uroot -p密码 数据库名 &lt; D:/备份文件名.sql			<span class="hljs-comment"># 导入数据库</span></code></pre>
 
 
-              </div>
+
+<h3 id="2、查看选择"><a href="#2、查看选择" class="headerlink" title="2、查看选择"></a>2、查看选择</h3><pre><code class="hljs mysql">show databases; 			# 查看所有数据库
+show tables;				# 查看所有数据表
+show create table T_name;	# 查看表的创建细节
+desc T_name;				# 查看表结构
+use dbname;					# 进入数据库
+select database();  		# 查看当前所在的库</code></pre>
+
+
+
+<h3 id="3、创建数据库"><a href="#3、创建数据库" class="headerlink" title="3、创建数据库"></a>3、创建数据库</h3><pre><code class="hljs mysql"># CREATE DATABASE 数据库名
+CREATE DATABASE Python_7; 
+CREATE DATABASE pyrhon_7 charset utf8
+
+# 修改数据库编码
+alter database db1 charset gbk;</code></pre>
+
+
+
+<h3 id="4、删除数据库"><a href="#4、删除数据库" class="headerlink" title="4、删除数据库"></a>4、删除数据库</h3><pre><code class="hljs mysql"># drop database 需要删除的数据库名
+drop database dbname;</code></pre>
+
+
+
+<h3 id="5、新建表"><a href="#5、新建表" class="headerlink" title="5、新建表"></a>5、新建表</h3><pre><code class="hljs mysql"># create table 新建数据表名（
+#   	字段名 类型(长度) [约束],
+#   	字段名 类型(长度) [约束]
+#  );
+create table class(
+		id INT AUTO_INCREMENT,
+	name varchar(32) UNIQUE,
+	age varchar(32) NOT NULL
+);
+
+# 若根据已有的表创建新表
+create table 新表 like 旧表  # 使用旧表创建新表
+create table 新表 as select 字段1 字段2... from definition only	# 使用自定义值去新建表</code></pre>
+
+
+
+<h3 id="6、查看表"><a href="#6、查看表" class="headerlink" title="6、查看表"></a>6、查看表</h3><pre><code class="hljs mysql">select database();  		# 查看当前所在的库
+show tables; 				# 查看数据库中所有表
+desc T_name;				# 查看表结构
+show create table T_name;	# 查看表的创建细节</code></pre>
+
+
+
+<h3 id="7、删除表"><a href="#7、删除表" class="headerlink" title="7、删除表"></a>7、删除表</h3><pre><code class="hljs mysql">#drop table 数据库表名
+drop table T_name;</code></pre>
+
+
+
+<h3 id="8、修改表"><a href="#8、修改表" class="headerlink" title="8、修改表"></a>8、修改表</h3><pre><code class="hljs mysql">alter table 表名 add 字段名 类型（长度） [约束]; -- 添加列
+alter table 表名 modify 字段名 类型（长度） [约束]; -- 修改列的类型长度及约束
+alter table 表名 change 旧字段名 新字段名 类型（长度） [约束]; -- 修改列表名
+alter table 表名 drop 字段名; -- 删除列
+alter table 表名 character set 字符集; -- 修改表的字符集
+rename table 表名 to 新表名; -- 修改表名</code></pre>
+
+
+
+<h2 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h2><h3 id="1、插入数据"><a href="#1、插入数据" class="headerlink" title="1、插入数据"></a>1、插入数据</h3><pre><code class="hljs mysql">insert into T_name(字段名1，字段名2...) values(值1，值2...);	# 向表中插入某些列
+insert into T_name values(值1，值2，值3， 值4...);			  # 向表中插入所有列</code></pre>
+
+
+
+<h3 id="2、删除数据"><a href="#2、删除数据" class="headerlink" title="2、删除数据"></a>2、删除数据</h3><pre><code class="hljs mysql">delete from T_name where 条件;	# 删除符合where条件的数据，不加where则为所有数据
+truncate table T_name;		# 重新建表，数据不能找回。执行速度比delete快</code></pre>
+
+
+
+<h3 id="3、修改数据"><a href="#3、修改数据" class="headerlink" title="3、修改数据"></a>3、修改数据</h3><pre><code class="hljs mysql">update 表名 set 字段名&#x3D;值,字段名&#x3D;值...;		# 这个会修改所有的数据，把一列的值都变了
+update 表名 set 字段名&#x3D;值,字段名&#x3D;值... where 条件;	# 只改符合where条件的行</code></pre>
+
+
+
+<h3 id="4、查找数据"><a href="#4、查找数据" class="headerlink" title="4、查找数据"></a>4、查找数据</h3><pre><code class="hljs mysql"># 简单的数据查询
+select * from T_name where 条件;		  # 查询满足where的所有列，不加where则为所有列
+select 字段1,字段名2... from T_name;		# 查询指定列</code></pre>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/15/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">
+                        <span class="hidden-mobile">嵌入式Linux应用程序开发</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -325,9 +509,15 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
 
 
 
