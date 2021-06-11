@@ -218,7 +218,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      29
+      28
        分钟
     </span>
   
@@ -445,11 +445,15 @@ $ umount /mnt	<span class="hljs-comment"># 卸载所有挂载的分区</span>
 $ reboot	<span class="hljs-comment">#重启计算机，关机后移除安装介质（U盘）</span></code></pre>
 
 <p><strong>至此，Arch Linux 安装成功</strong></p>
-<h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><h3 id="0x00-软件"><a href="#0x00-软件" class="headerlink" title="0x00 软件"></a>0x00 软件</h3><pre><code class="hljs bash">$ sudo pacman -S curl wget gcc make cmake pkg-config git xterm fakeroot binutils	<span class="hljs-comment"># 一些基本软件</span></code></pre>
+<h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><h3 id="0x00-基本软件"><a href="#0x00-基本软件" class="headerlink" title="0x00 基本软件"></a>0x00 基本软件</h3><pre><code class="hljs bash">$ sudo pacman -S neovim pkg-config xterm fakeroot binutils curl wget git yay make cmake clang nodejs npm goland ruby maven gcc jdk8-openjdk neofetch unrar unzip p7zip zsh tmux openssh gimp firefox chromium</code></pre>
+
+
 
 <h3 id="0x00-X-窗口管理系统"><a href="#0x00-X-窗口管理系统" class="headerlink" title="0x00 X 窗口管理系统"></a>0x00 X 窗口管理系统</h3><pre><code class="hljs bash">$ sudo pacman -S xorg xorg-xinit	<span class="hljs-comment"># xorg为X服务基本服务以及一些软件、xorg-xinit为手动启动桌面软件</span></code></pre>
 
-<h3 id="0x01-dwm窗口管理器"><a href="#0x01-dwm窗口管理器" class="headerlink" title="0x01 dwm窗口管理器"></a>0x01 dwm窗口管理器</h3><h4 id="1、克隆源代码"><a href="#1、克隆源代码" class="headerlink" title="1、克隆源代码"></a>1、克隆源代码</h4><pre><code class="hljs bash"><span class="hljs-comment"># 建议事先创建好文件夹、方便管理文件</span>
+
+
+<h3 id="0x01-桌面环境"><a href="#0x01-桌面环境" class="headerlink" title="0x01 桌面环境"></a>0x01 桌面环境</h3><h4 id="1-dwm窗口管理器"><a href="#1-dwm窗口管理器" class="headerlink" title="-1- dwm窗口管理器"></a>-1- dwm窗口管理器</h4><h4 id="1、克隆源代码"><a href="#1、克隆源代码" class="headerlink" title="1、克隆源代码"></a>1、克隆源代码</h4><pre><code class="hljs bash"><span class="hljs-comment"># 建议事先创建好文件夹、方便管理文件</span>
 $ git <span class="hljs-built_in">clone</span> https://git.suckless.org/dwm	<span class="hljs-comment"># 极简主义窗口管理器</span>
 $ git <span class="hljs-built_in">clone</span> https://git.suckless.org/dmenu	<span class="hljs-comment"># 一个软件启动菜单</span>
 $ git <span class="hljs-built_in">clone</span> https://git.suckless.org/st		<span class="hljs-comment"># 简单的终端</span></code></pre>
@@ -468,91 +472,111 @@ $ sudo make	clean install	<span class="hljs-comment"># 构建dwm(官方配置)</
 <p>Alt + P                                     打开启动菜单</p>
 <p>Alt + Shitf + q                        关闭dwm (也可以在命令行输入<code>killall dwm</code>)</p>
 <h4 id="4、个性化配置dwm"><a href="#4、个性化配置dwm" class="headerlink" title="4、个性化配置dwm"></a>4、个性化配置dwm</h4><h3 id="0x02-美化"><a href="#0x02-美化" class="headerlink" title="0x02 美化"></a>0x02 美化</h3><pre><code class="hljs bash">$ sudo pacman -S feh picom xfce4-power-manager alsa-utils
-<span class="hljs-comment"># feh为壁纸软件、picom可以透明窗口拥有毛玻璃特效、alsa-utils为声音组件</span>
-
-</code></pre>
+<span class="hljs-comment"># feh为壁纸软件、picom可以透明窗口拥有毛玻璃特效、alsa-utils为声音组件</span></code></pre>
 
 <h4 id="2、polybar"><a href="#2、polybar" class="headerlink" title="2、polybar"></a>2、polybar</h4><pre><code class="hljs bash">$ yay -S polybar	<span class="hljs-comment"># 代替dwm的状态显示器，依赖尽量都安装了</span>
 $ sudo pacman -S libmpdclient mpd	<span class="hljs-comment"># 要使用mpd模块，需要安装这两个</span></code></pre>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<p><strong>未完待续</strong></p>
-<h1 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h1><ul>
-<li><p>基本工具</p>
-<pre><code class="hljs bash">sudo pacman -S vim curl wget git yay</code></pre></li>
-<li><p>查看系统信息</p>
-<pre><code class="hljs ebnf"><span class="hljs-attribute">sudo pacman -S screenfetch neofetch</span></code></pre></li>
-<li><p>浏览器</p>
-<pre><code class="hljs ebnf"><span class="hljs-attribute">sudo pacman -S firefox chromium</span></code></pre></li>
-<li><p>媒体</p>
-<pre><code class="hljs mipsasm">sudo pacman -S netease-<span class="hljs-keyword">cloud-music </span>   <span class="hljs-comment">#网易云</span>
-sudo pacman -S mpv    <span class="hljs-comment">#轻量视频播放器</span></code></pre></li>
-<li><p>输入法</p>
-<pre><code class="hljs ebnf"><span class="hljs-attribute">sudo pacman -S fcitx-im</span>
-<span class="hljs-attribute">sudo pacman -S fcitx-configtool</span></code></pre>
-<p>配置一下<code>sudo vim ~/.xprofile</code>添加：</p>
-<pre><code class="hljs routeros"><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">GTK_IM_MODULE</span>=fcitx
-<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">QT_IM_MODULE</span>=fcitx
-<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">XMODIFIERS</span>=<span class="hljs-string">&quot;@im=fcitx&quot;</span></code></pre></li>
-<li><p>编辑器</p>
-<pre><code class="hljs clean">sudo pacman -S atom   #类似<span class="hljs-keyword">code</span>有很多插件
-sudo pacman -S typora   #好用的markdown编辑器</code></pre></li>
-<li><p>办公软件</p>
-<pre><code class="hljs gauss">sudo pacman -S unrar unzip p7zip
-sudo pacman -S wps    <span class="hljs-meta">#wps一套</span>
-sudo pacman -S ttf-wps-<span class="hljs-built_in">fonts</span>    <span class="hljs-meta">#wps字体</span></code></pre></li>
-<li><p>Shell</p>
-<pre><code class="hljs nginx"><span class="hljs-attribute">sudo</span> pacman -S zsh    <span class="hljs-comment">#两个Shell都不错，选一个就可以</span>
-sudo pacman -S fish</code></pre>
-<p>如果用zsh可以安装oh-my-zsh:<br>​<code>sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;</code></p>
-</li>
-<li><p>设计</p>
-<pre><code class="hljs nginx"><span class="hljs-attribute">sudo</span> pacman -S pencil   <span class="hljs-comment">#免费开源界面原型图绘制工具</span>
-sudo pacman -S gimp   <span class="hljs-comment">#修图</span></code></pre></li>
-<li><p>开发</p>
-<pre><code class="hljs coffeescript">sudo pacman -S make cmake clang nodejs <span class="hljs-built_in">npm</span> goland maven gcc jdk8-openjdk
-sudo pacman -S pycharm-professional <span class="hljs-comment">#Python   IDE</span>
-sudo pacman -S intellij-idea-ultimate-edition   <span class="hljs-comment">#JAVA IDE</span>
-sudo pacman -S goland   <span class="hljs-comment">#Go IDE</span>
-sudo pacman -S qtcreator    <span class="hljs-comment">#一款QT开发软件</span></code></pre></li>
-<li><p>渗透</p>
-</li>
+<h4 id="2-kde"><a href="#2-kde" class="headerlink" title="-2- kde"></a>-2- kde</h4><ul>
+<li>plasma-desktop</li>
+<li>plasma</li>
+<li>konsole    # 终端</li>
+<li>latte-dock    # 下方的dock</li>
 </ul>
-<pre><code class="hljs mipsasm">sudo pacman -S nmap
-sudo pacman -S sqlmap
-sudo pacman -S lynis
-sudo pacman -S ettercap
-sudo pacman -S wireshark
-sudo pacman -S aircrack-ng
-sudo pacman -S metasploit
-sudo pacman -S Maltego
-sudo pacman -S chntpw   <span class="hljs-comment">#破解windows密码</span>
-yay -S <span class="hljs-keyword">burpsuite</span>
-<span class="hljs-keyword"></span></code></pre>
+<pre><code class="hljs bash">$ sudo pacman -S plasma plasma-desktop konsole latte-dock</code></pre>
 
 
 
-<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><h3 id="中文字体"><a href="#中文字体" class="headerlink" title="中文字体"></a>中文字体</h3><p>思源、文泉驿</p>
-<pre><code class="hljs vim">sudo pacman-S adobe-<span class="hljs-keyword">source</span>-han-sans-<span class="hljs-keyword">cn</span>-fonts adobe-<span class="hljs-keyword">source</span>-han-serif-<span class="hljs-keyword">cn</span>-fonts
-sudo pacman -S wqy-microhei wqy-bitmapfont wqy-zenhei wqy-microhei-li</code></pre>
-<hr>
-<h3 id="代码字体"><a href="#代码字体" class="headerlink" title="代码字体"></a>代码字体</h3><pre><code class="hljs gauss">sudo pacman -S nerd-<span class="hljs-built_in">fonts</span>-<span class="hljs-built_in">code</span>-<span class="hljs-keyword">new</span>-roman</code></pre>
 
-<hr>
-<pre><code class="hljs plain"></code></pre>
+
+
+
+<h3 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h3><pre><code class="hljs bash">$ sudo pacman-S adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts nerd-fonts-code-new-roman ttf-wps-fonts</code></pre>
+
+<ul>
+<li>输入法</li>
+</ul>
+<pre><code class="hljs bash">$ sudo pacman -S fcitx5</code></pre>
+
+
+
+<h2 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h2><ul>
+<li>netease-cloud-music    #网易云</li>
+<li>mplayer    #轻量视频播放器</li>
+<li>vlc     # 视频播放器</li>
+<li>telegram    # 社交</li>
+<li>yakuake    # 下拉式终端</li>
+<li>obs    # 录屏直播</li>
+<li>wps    # office</li>
+<li>pencil    # 画画</li>
+<li>ranger    # 终端文件管理器</li>
+<li>feh    # 图片查看器</li>
+<li>Dolphin    # kde文件管理器</li>
+<li>v2ray qv2ray    # 网络加速</li>
+<li>kdenlive    # 视频剪辑</li>
+</ul>
+<pre><code class="hljs ebnf"><span class="hljs-attribute">sudo pacman -S netease-cloud-music mplayer vlc telegram-desktop yakuake obs-studio wps pencil ranger feh dolphin kdenlive</span></code></pre>
+
+
+
+<h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><ul>
+<li>vscode    # 经典代码编辑器</li>
+</ul>
+<pre><code class="hljs bash">sudo pacman -S visual-studio-code-bin</code></pre>
+
+
+
+
+
+
+
+<h2 id="CTF-Tools"><a href="#CTF-Tools" class="headerlink" title="CTF Tools"></a>CTF Tools</h2><h3 id="web"><a href="#web" class="headerlink" title="web"></a>web</h3><ul>
+<li>nmap    # 网络扫描</li>
+<li>sqlmap    # sql注入</li>
+<li>zaproxy    # yyds</li>
+</ul>
+<pre><code class="hljs bash">$ sudo pacman -S nmap sqlmap zaproxy</code></pre>
+
+
+
+<h3 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h3><ul>
+<li>IDA Pro    # 静态分析</li>
+</ul>
+<p>需要Wine环境</p>
+<ul>
+<li>Pwntools    # pwn选手专用库<ul>
+<li>checksec</li>
+<li>ROPgadget</li>
+</ul>
+</li>
+<li>pwndbg    # 动态调试</li>
+</ul>
+<p>添加 <code>source /usr/share/pwndbg/gdbinit.py</code> 到 <code>~/.gdbinit</code></p>
+<ul>
+<li>one_gadget    # 一键从libc中找到可以getshell的地址，ruby环境</li>
+<li>main_arena_offset    # 取自github</li>
+</ul>
+<pre><code class="hljs bash">$ yay -S pwndbg
+$ pip install pwntools
+$ gem install one_gadget</code></pre>
+
+
+
+<h2 id="Sec-Tools"><a href="#Sec-Tools" class="headerlink" title="Sec Tools"></a>Sec Tools</h2><ul>
+<li>lynis    # 系统扫描工具</li>
+<li>ettercap    # arp攻击</li>
+<li>wireshark    # 流量分析</li>
+<li>aircrack-ng    # wifi攻击套件</li>
+<li>metasploit    # msf框架</li>
+<li>maltego    # 社工框架</li>
+<li>chntpw    # 密码破解工具</li>
+</ul>
+<pre><code class="hljs bash">$ sudo pacman -S lynis ettercap wireshark aircrack-ng metasploit chntpw
+$ yay -S maltego</code></pre>
+
+
             </div>
             <hr>
             <div>
