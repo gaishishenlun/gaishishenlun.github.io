@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        Hexo
+    </title>
+    
+<link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body id="bodyx">
+    <div class="hd posts">
+    <a href="/index.html"><i class="fa fa-reply replay-btn" aria-hidden="true"></i></a>
+    <div class="post-title">
+        <p>
+            Linux后台运行程序
+        </p>
+        <hr>
+    </div>
+    <div class="post-content">
+        <h1 id="Linux后台运行-可退出登录-断开ssh"><a href="#Linux后台运行-可退出登录-断开ssh" class="headerlink" title="Linux后台运行(可退出登录|断开ssh)"></a>Linux后台运行(可退出登录|断开ssh)</h1><p>有时候一些Web应用或者脚本啥的希望服务器后台运行，需要运行后关掉终端、退出登录、断开ssh不影响脚本或程序的运行。</p>
+<h2 id="nohup-screen"><a href="#nohup-screen" class="headerlink" title="nohup + screen"></a>nohup + screen</h2><h3 id="1、利用screen创建独立运行（孤儿）的会话session。"><a href="#1、利用screen创建独立运行（孤儿）的会话session。" class="headerlink" title="1、利用screen创建独立运行（孤儿）的会话session。"></a>1、利用screen创建独立运行（孤儿）的会话session。</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ screen -S example1	<span class="comment"># 创建一个名为example1的session</span></span><br></pre></td></tr></table></figure>
+
+<p>创建完自动进入</p>
+<h3 id="2、在session中利用nohup将应用挂载到后台并将输出重定向到文件"><a href="#2、在session中利用nohup将应用挂载到后台并将输出重定向到文件" class="headerlink" title="2、在session中利用nohup将应用挂载到后台并将输出重定向到文件"></a>2、在session中利用nohup将应用挂载到后台并将输出重定向到文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 例如ls</span></span><br><span class="line">$ nohup ls /home &gt;&gt; /tmp/ls.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、从session暂离"><a href="#3、从session暂离" class="headerlink" title="3、从session暂离"></a>3、从session暂离</h3><p>Ctrl + a d    # 按住Ctrl后先按a再按d。</p>
+<p>因为他是孤儿进程，所以只要不关闭机器或者kill它，他就不会结束，当然，可以自己结束。</p>
+<h2 id="关于nohup"><a href="#关于nohup" class="headerlink" title="关于nohup"></a>关于nohup</h2><p>nohup 命令运行由 Command参数和 Arg参数构成，忽略（SIGHUP）信号。</p>
+<p>nohup 是 no hang up 的缩写，意为不挂断，但没有后台运行，终端不能标准输入。结合&amp;可挂到后台</p>
+<p>在缺省情况下该作业的所有输出都被重定向到一个名为nohup.out的文件中，或者 &gt;&gt;/dev/null 扔掉</p>
+<h3 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup [命令]] [参数] [(其他操作)　&amp;]	<span class="comment"># &amp;表示挂起</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="关于screen"><a href="#关于screen" class="headerlink" title="关于screen"></a>关于screen</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p>​    Screen是一个全屏窗口管理器，它在多个进程（通常是交互式shell）之间多路传输物理终端。每个虚拟终端提供DEC VT100终端的功能，此外，还提供ANSI X3.64（ISO 6429）和ISO 2022标准中的若干控制功能（例如，插入/删除行和支持多个字符集）。每个虚拟终端都有一个回滚历史缓冲区和一个复制粘贴机制，允许用户在窗口之间移动文本区域。当screen被调用时，它会创建一个包含shell（或指定命令）的窗口，然后就可以不打扰您了，这样您就可以像平常一样使用这个程序了。然后，您可以随时使用其他程序（包括更多shell）创建新的（全屏）窗口，关闭当前窗口，查看活动窗口列表，打开和关闭输出日志记录，在窗口之间复制文本，查看回滚历史记录，在窗口之间切换，所有的窗口都完全独立地运行它们的程序。当程序的窗口当前不可见时，甚至当整个屏幕会话与用户终端分离时，程序仍继续运行。 </p>
+<h3 id="2、语法"><a href="#2、语法" class="headerlink" title="2、语法"></a>2、语法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ screen [参数] [内容]</span><br><span class="line"> </span><br><span class="line">-A	<span class="comment"># 将所有的视窗都调整为目前终端机的大小。</span></span><br><span class="line">-d   &lt;作业名称&gt;	<span class="comment"># 将指定的screen作业离线。</span></span><br><span class="line">-h   &lt;行数&gt;	<span class="comment"># 指定视窗的缓冲区行数。</span></span><br><span class="line">-m	<span class="comment"># 即使目前已在作业中的screen作业，仍强制建立新的screen作业。</span></span><br><span class="line">-r   &lt;作业名称&gt;	<span class="comment"># 恢复离线的screen作业。</span></span><br><span class="line">-R 　<span class="comment"># 先试图恢复离线的作业。若找不到离线的作业，即建立新的screen作业。</span></span><br><span class="line">-s 　<span class="comment"># 指定建立新视窗时，所要执行的shell。</span></span><br><span class="line">-S   &lt;作业名称&gt;	<span class="comment"># 指定screen作业的名称。</span></span><br><span class="line">-v 　<span class="comment"># 显示版本信息。</span></span><br><span class="line">-x 　<span class="comment"># 恢复之前离线的screen作业。</span></span><br><span class="line">-ls	<span class="comment"># 显示目前所有的screen作业。</span></span><br><span class="line">-wipe	<span class="comment"># 检查目前所有的screen作业，并删除已经无法使用的screen作业。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、快捷键"><a href="#3、快捷键" class="headerlink" title="3、快捷键"></a>3、快捷键</h3><p><strong>在每个screen session 下，所有命令都以 ctrl+a(C-a) 开始。</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ctrl + a +</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>?</td>
+<td>Help，显示简单说明</td>
+</tr>
+<tr>
+<td>“</td>
+<td>列出终端列表</td>
+</tr>
+<tr>
+<td>A</td>
+<td>重命名终端</td>
+</tr>
+<tr>
+<td>c</td>
+<td>创建新的终端,并切换到该终端</td>
+</tr>
+<tr>
+<td>d</td>
+<td>暂时断开会话,但所有任务都依然执行</td>
+</tr>
+<tr>
+<td>k</td>
+<td>关闭当前终端,并切换到下一个终端(当没终端时 退到原始shell终端)</td>
+</tr>
+<tr>
+<td>n</td>
+<td>切换到下一个终端</td>
+</tr>
+<tr>
+<td>p</td>
+<td>切换到上一个终端</td>
+</tr>
+<tr>
+<td>t</td>
+<td>显示当前时间,和系统的 load</td>
+</tr>
+<tr>
+<td>S</td>
+<td>新建水平线分割终端</td>
+</tr>
+<tr>
+<td>Tab</td>
+<td>水平线切换终端</td>
+</tr>
+<tr>
+<td>X</td>
+<td>关闭当前终端</td>
+</tr>
+<tr>
+<td>+</td>
+<td>扩大当前终端</td>
+</tr>
+<tr>
+<td>-</td>
+<td>缩小当前终端</td>
+</tr>
+<tr>
+<td>[Space]</td>
+<td>窗口切换</td>
+</tr>
+<tr>
+<td>0-9</td>
+<td>在0-9个终端之间切换</td>
+</tr>
+<tr>
+<td>[Ctrl + a]</td>
+<td>最近使用的2个窗口切换</td>
+</tr>
+<tr>
+<td>w</td>
+<td>列出终端列表</td>
+</tr>
+<tr>
+<td>x</td>
+<td>锁住当前窗口，需用用户密码解锁</td>
+</tr>
+<tr>
+<td>z</td>
+<td>把当前会话放到后台执行，用 shell 的 fg 命令则可回去。</td>
+</tr>
+<tr>
+<td>exit</td>
+<td>关闭当前终端</td>
+</tr>
+<tr>
+<td>:screen <command></td>
+<td>新建 screen 终端，并运行命令 <command></td>
+</tr>
+<tr>
+<td>:resize <height></td>
+<td>改变当前窗口高度为 <height></td>
+</tr>
+<tr>
+<td>:quit</td>
+<td>退出 screen 关闭所有 screen 终端，结束其中所有任务</td>
+</tr>
+</tbody></table>
+<p>选择模式下操作</p>
+<table>
+<thead>
+<tr>
+<th>Ctrl + a + <Esc> (进入选择模式)</th>
+<th>选择模式下功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><PageUp>或 Ctrl-u</td>
+<td>光标上移一页</td>
+</tr>
+<tr>
+<td><PageDown> 或 Ctrl-d</td>
+<td>光标下移一页</td>
+</tr>
+<tr>
+<td><Left> 或 h</td>
+<td>光标左移一格</td>
+</tr>
+<tr>
+<td><Down> 或 j</td>
+<td>光标下移一行</td>
+</tr>
+<tr>
+<td><Up> 或 k</td>
+<td>光标上移一行</td>
+</tr>
+<tr>
+<td><Right> 或 l</td>
+<td>光标右移一格</td>
+</tr>
+<tr>
+<td><Space></td>
+<td>选择开始，选择结束</td>
+</tr>
+<tr>
+<td><Esc></td>
+<td>退出选择模式</td>
+</tr>
+<tr>
+<td>Ctrl-a ]</td>
+<td>粘贴选择的内容</td>
+</tr>
+</tbody></table>
+<h3 id="4、例"><a href="#4、例" class="headerlink" title="4、例:"></a>4、例:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">screen -S name	<span class="comment"># 新建一个叫name的session</span></span><br><span class="line">screen -ls		<span class="comment"># 列出当前所有的session</span></span><br><span class="line">screen -r name	<span class="comment"># 回到name这个session</span></span><br><span class="line">screen -d name	<span class="comment"># 远程detach某个session</span></span><br><span class="line">screen -d -r name	<span class="comment"># 结束当前session并回到name这个session</span></span><br><span class="line">[Ctrl + a + d]	<span class="comment"># 暂离session (回到之前的shell)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+        <hr class="fhr">
+        <div id="vcomments"></div>
+    
+</div>
+    <div class="footer" id="footer">
+    <p>Copyright © 2020 <a class="flink" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>-<a class="flink" target="_blank" rel="noopener" href="https://github.com/sanjinhub/hexo-theme-geek">Geek</a>.
+        <label class="el-switch el-switch-green el-switch-sm" style="vertical-align: sub;">
+            <input type="checkbox" name="switch" id="update_style">
+            <span class="el-switch-style"></span>
+        </label>
+<!--         <script type="text/javascript">
+        var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+        document.write(unescape("%3Cspan id='cnzz_stat_icon_1278548644'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D1278548644%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+        </script> -->
+    </p>
+</div>
+<input type="hidden" id="web_style" value="white">
+<input type="hidden" id="valine_appid" value="CmCti21ooOOIzFOhEyFkFvR0-gzGzoHsz">
+<input type="hidden" id="valine_appKey" value="FqiyUqbg7McKN2eG0MCewupf">
+
+<script src="/libs/jquery.min.js"></script>
+
+
+<script src="/libs/highlight/highlight.pack.js"></script>
+
+<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+
+<script src="/js/js.js"></script>
+
+<style type="text/css">
+.v * {
+    color: #698fca;
+}
+
+.v .vlist .vcard .vhead .vsys {
+    color: #3a3e4a;
+}
+
+.v .vlist .vcard .vh .vmeta .vat {
+    color: #638fd5;
+}
+
+.v .vlist .vcard .vhead .vnick {
+    color: #6ba1ff;
+}
+
+.v a {
+    color: #8696b1;
+}
+
+.v .vlist .vcard .vhead .vnick:hover {
+    color: #669bfc;
+}
+</style>
+</body>
+
+</html>

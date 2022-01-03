@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        Hexo
+    </title>
+    
+<link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body id="bodyx">
+    <div class="hd posts">
+    <a href="/index.html"><i class="fa fa-reply replay-btn" aria-hidden="true"></i></a>
+    <div class="post-title">
+        <p>
+            Arch Linux
+        </p>
+        <hr>
+    </div>
+    <div class="post-content">
+        <h1 id="Arch-Linux-全家桶"><a href="#Arch-Linux-全家桶" class="headerlink" title="Arch Linux 全家桶"></a>Arch Linux 全家桶</h1><p><strong>前言</strong>：强烈建议观看 Arch Wiki 进行安装配置</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="0x00安装前准备阶段"><a href="#0x00安装前准备阶段" class="headerlink" title="0x00安装前准备阶段"></a>0x00安装前准备阶段</h3><h4 id="1、到各大镜像站下载Arch-Linux最新镜像文件以及-sig文件并验证"><a href="#1、到各大镜像站下载Arch-Linux最新镜像文件以及-sig文件并验证" class="headerlink" title="1、到各大镜像站下载Arch Linux最新镜像文件以及.sig文件并验证"></a>1、到各大镜像站下载Arch Linux最新镜像文件以及.sig文件并验证</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ md5sum archlinux-2021.01.01-x86_64.iso</span><br><span class="line">48d67c59afcd2e39f25799efcc2b1999  archlinux-2021.01.01-x86_64.iso</span><br><span class="line"></span><br><span class="line">$ sha1sum archlinux-2021.01.01-x86_64.iso</span><br><span class="line">c3082b13d3cf0a253e1322568f2fd07479f86d52  archlinux-2021.01.01-x86_64.iso</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在Arch Linux上验证签名</span></span><br><span class="line">$ pacman-key -v archlinux-version-x86_64.iso.sig</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在其他Linux上验证签名</span></span><br><span class="line">$ gpg --keyserver pgp.mit.edu --keyserver-options auto-key-retrieve --verify archlinux-2021.01.01-x86_64.iso.sig</span><br></pre></td></tr></table></figure>
+
+<p>此处验证可以忽略，若下载采用HTTP协议则尽量验证一下</p>
+<h4 id="2、刻录镜像"><a href="#2、刻录镜像" class="headerlink" title="2、刻录镜像"></a>2、刻录镜像</h4><h5 id="Windows：软件刻录"><a href="#Windows：软件刻录" class="headerlink" title="Windows：软件刻录"></a>Windows：软件刻录</h5><p>rufus、UltraISO软碟通</p>
+<h5 id="Linux：DD"><a href="#Linux：DD" class="headerlink" title="Linux：DD"></a>Linux：DD</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo fdisk -l	<span class="comment">#查看各个磁盘，此处我的U盘为/dev/sdb,其被分成两个分区分别是/dev/sdb1、/dev/sdb2</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="./U_disk.png" alt="U_disk"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要全部umount</span></span><br><span class="line">$ sudo umount /dev/sdb1 /dev/sdb2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后使用dd命令将镜像写入到U盘所在的分区，其中&quot;/tmp/archlinux-2021.01.01-x86_64.iso&quot;为镜像所在位置</span></span><br><span class="line">sudo dd <span class="keyword">if</span>=/tmp/archlinux-2021.01.01-x86_64.iso of=/dev/sdb bs=4M</span><br><span class="line"></span><br><span class="line"><span class="comment"># 另开一个终端查看进度</span></span><br><span class="line">$ ps aux | grep dd | grep -v <span class="string">&quot;grep&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 刻录结束后运行sync命令检查，sync结束后就可以拔出U盘了</span></span><br><span class="line">$ sync</span><br></pre></td></tr></table></figure>
+
+<h3 id="0x01-开始安装-安装过程中皆为root权限"><a href="#0x01-开始安装-安装过程中皆为root权限" class="headerlink" title="0x01 开始安装(安装过程中皆为root权限)"></a>0x01 开始安装(安装过程中皆为root权限)</h3><h4 id="1、联网"><a href="#1、联网" class="headerlink" title="1、联网"></a>1、联网</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#检查网络接口</span></span><br><span class="line">$ ip link	</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于有线以太网，使用dhcpcd获取IP</span></span><br><span class="line">$ dhcpcd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于wifi网络使用iwctl连网，不会用就百度</span></span><br><span class="line">$ iwctl </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>都不行的话就用手机USB网络共享，手机连Wifi也可以</li>
+</ul>
+<h4 id="2、验证启动方式"><a href="#2、验证启动方式" class="headerlink" title="2、验证启动方式"></a>2、验证启动方式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls /sys/firmware/efi/efivars</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果命令没有错误地显示了目录，则系统以 UEFI 模式启动。如果目录不存在，系统可能以 BIOS 模式或 CSM 模式启动。</li>
+</ul>
+<h4 id="3、更新系统时间"><a href="#3、更新系统时间" class="headerlink" title="3、更新系统时间"></a>3、更新系统时间</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ timedatectl set-ntp <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4、建立硬盘分区"><a href="#4、建立硬盘分区" class="headerlink" title="4、建立硬盘分区"></a>4、建立硬盘分区</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ fdisk -l	<span class="comment">#查看系统分区，例如：/dev/sda、/dev/nvme0n1等。</span></span><br><span class="line">$ fdisk /dev/nvme0n1	<span class="comment">#对分区进行操作，此时命令行变为&quot;Command (m for help):&quot;开头，输入m或help即可获取帮助文档</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>能用到的操作:</strong>        n：新建    w：写入    q：退出</p>
+<ul>
+<li><p>根据需求进行分区，UEFI 与 GPT类型分区表 (BIOS 与 MBR分区表无需EFI分区) 如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">挂载点</th>
+<th align="center">分区</th>
+<th align="center">分区类型</th>
+<th align="center">建议大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">/mnt/boot/efi</td>
+<td align="center">/dev/efi_system_partition（efi 系统分区）</td>
+<td align="center">EFI系统分区</td>
+<td align="center">512MB</td>
+</tr>
+<tr>
+<td align="center">[SWAP]</td>
+<td align="center">/dev/swap_partition（交换空间分区）</td>
+<td align="center">SWAP交换空间</td>
+<td align="center">[内存] * 1.1</td>
+</tr>
+<tr>
+<td align="center">/mnt</td>
+<td align="center">/dev/root_partition（根分区）</td>
+<td align="center">Linux x86-64 根目录 (/)</td>
+<td align="center">剩余空间</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ fdisk -l	<span class="comment"># 分区后再使用此命令查看分区如下所示</span></span><br><span class="line"></span><br><span class="line">Device          Boot    Start    End    Sectors    Size    Id    Type</span><br><span class="line">/dev/nvme0n1p1  ----    ----     ---    -------    512M    --    ----</span><br><span class="line">/dev/nvme0n1p2  ----    ----     ---    -------    8.8G    --    ----</span><br><span class="line">/dev/nvme0n1p3  ----    ----     ---    -------    460G    --    ----</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、格式化分区"><a href="#5、格式化分区" class="headerlink" title="5、格式化分区"></a>5、格式化分区</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mkfs.ext4 /dev/nvme0n1p3		<span class="comment">#根分区</span></span><br><span class="line">$ mkfs.fat -F32 /dev/nvme0n1p1	<span class="comment">#EFI分区</span></span><br><span class="line">$ mkswap /dev/nvme0n1p2			<span class="comment">#交换分区</span></span><br></pre></td></tr></table></figure>
+
+<p>如果在格式化EFI分区时提示：”WARNING: Not enough clusters for a 32 bit FAT!”，请运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkfs.fat -s2 -F32	/dev/nvme0n1p1	<span class="comment">#或 -s1 以减小簇大小，否则 UEFI 无法读取分区。</span></span><br></pre></td></tr></table></figure>
+
+<p>运行 mkfs.fat -s2 -F32 … 或 -s1 以减小簇大小，否则 UEFI 无法读取分区。</p>
+<h4 id="6、挂载分区"><a href="#6、挂载分区" class="headerlink" title="6、挂载分区"></a>6、挂载分区</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mount /dev/nvme0n1p3 /mnt				<span class="comment">#先挂载根分区</span></span><br><span class="line">$ mkdir -p /mnt/boot/efi				<span class="comment">#创建EFI分区所在文件夹</span></span><br><span class="line">$ mount /dev/nvme0n1p1 /mnt/boot/efi	<span class="comment">#挂载EFI分区</span></span><br><span class="line">$ swapon /dev/nvme0n1p2					<span class="comment">#开启SWAP分区</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="7、安装基本系统"><a href="#7、安装基本系统" class="headerlink" title="7、安装基本系统"></a>7、安装基本系统</h4><ul>
+<li>更换镜像站为国内镜像站</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/pacman.d/mirrorlist	<span class="comment">#找到国内镜像站</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="./mirrors.png" alt="mirrors"></p>
+<p>挑选自己喜欢的镜像站复制到文件首部 (也可以全部移到首部)。</p>
+<ul>
+<li>安装基本软件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pacstrap /mnt base linux linux-firmware</span><br></pre></td></tr></table></figure>
+
+<h4 id="8、配置系统"><a href="#8、配置系统" class="headerlink" title="8、配置系统"></a>8、配置系统</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ genfstab -U /mnt &gt;&gt; /mnt/etc/fstab	<span class="comment">#生成fstab文件</span></span><br><span class="line">$ cat /mnt/etc/fstab	<span class="comment">#检查文件</span></span><br><span class="line"></span><br><span class="line">$ arch-chroot /mnt		<span class="comment">#Change root到新安装的系统中</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>以上为U盘中的live系统，以下为安装到电脑中的系统</li>
+</ul>
+<h5 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime	<span class="comment">#设置时区</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="本地化"><a href="#本地化" class="headerlink" title="本地化"></a>本地化</h5><p>编辑 <code>/etc/locale.gen</code> 文件移除需要地区前的注释符号，例：en_US.UTF-8、zh_CN.UTF-8、zh_TW.UTF-8 UTF-8</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ locale-gen	<span class="comment">#生成locale信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#将默认语言编码写入locale.conf文件,也可以使用en_GB.UTF-8 或 en_SG.UTF-8</span></span><br><span class="line">$ <span class="built_in">echo</span> LANG=en_US.UTF-8 &gt; /etc/locale.conf</span><br></pre></td></tr></table></figure>
+
+<h5 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> gaishishenlun &gt; /etc/hostname	<span class="comment"># 创建 /etc/hostname 写入主机名 gaishishenlun</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加到hosts</span></span><br><span class="line">$ vim /etc/hosts	<span class="comment"># 注意gaishishenlun改成自己的主机名，若有系统有永久IP，则将127.0.1.1换之。</span></span><br><span class="line">------------------------------------------------------</span><br><span class="line">127.0.0.1	localhost</span><br><span class="line">::1		localhost</span><br><span class="line">127.0.1.1	gaishishenlun.localdomain	gaishishenlun</span><br></pre></td></tr></table></figure>
+
+<h5 id="基本设置"><a href="#基本设置" class="headerlink" title="基本设置"></a>基本设置</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ pacman -S fish	<span class="comment"># 安装一个喜欢的shell，zsh 或 fish都可以</span></span><br><span class="line"></span><br><span class="line">$ passwd	<span class="comment"># 修改root密码</span></span><br><span class="line"></span><br><span class="line">$ useradd -m -G wheel -s /usr/bin/fish gaishsihenlun	<span class="comment"># 创建一个用户</span></span><br><span class="line"><span class="comment"># -m 创建用户主目录、-G添加附加用户组，wheel为管理员组、-s选择默认shell、gaishishenlun为用户名</span></span><br><span class="line">$ passwd gaishishenlun	<span class="comment"># 修改gaishishenlun用户的密码</span></span><br><span class="line"></span><br><span class="line">$ pacman -S iw wpa_supplicant dialog netctl dhcpcd	<span class="comment"># 网络所需软件</span></span><br><span class="line"></span><br><span class="line">$ pacman -S sudo	<span class="comment"># 安装权限管理软件sudo，安装后修改/etc/sudoers，去掉82行以及88行的注释</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="./sudo.png" alt="sudo"></p>
+<h5 id="安装引导程序（GRUB）"><a href="#安装引导程序（GRUB）" class="headerlink" title="安装引导程序（GRUB）"></a>安装引导程序（GRUB）</h5><p><strong>根据引导类型选择<u>一个</u>进行安装</strong></p>
+<ul>
+<li>UEFI引导：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ pacman -S grub efibootmgr	<span class="comment"># 安装所需软件</span></span><br><span class="line"></span><br><span class="line">$ grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB	<span class="comment"># 安装引导</span></span><br><span class="line"></span><br><span class="line">$ grub-mkconfig -o /boot/grub/grub.cfg	<span class="comment"># 生成cfg文件</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>MBR引导</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ pacman -S grub	<span class="comment"># 安装所需软件</span></span><br><span class="line"></span><br><span class="line">$ grub-install --target=i386-pc /dev/nvme0n1	<span class="comment">#nvme0n1为磁盘，而不是某个分区</span></span><br><span class="line"></span><br><span class="line">$ grub-mkconfig -o /boot/grub/grub.cfg	<span class="comment"># 生成cfg文件</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><strong>上述安装过程中无错误出现即为安装成功，否则必须重新安装。</strong></li>
+</ul>
+<h3 id="0x02-重启、结束安装"><a href="#0x02-重启、结束安装" class="headerlink" title="0x02 重启、结束安装"></a>0x02 重启、结束安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">exit</span>	<span class="comment"># 退出chroot环境</span></span><br><span class="line"></span><br><span class="line">$ umount /mnt	<span class="comment"># 卸载所有挂载的分区</span></span><br><span class="line"></span><br><span class="line">$ reboot	<span class="comment">#重启计算机，关机后移除安装介质（U盘）</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>至此，Arch Linux 安装成功</strong></p>
+<h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><h3 id="0x00-基本软件"><a href="#0x00-基本软件" class="headerlink" title="0x00 基本软件"></a>0x00 基本软件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -S neovim pkg-config xterm fakeroot binutils curl wget git yay make cmake clang nodejs npm goland ruby maven gcc jdk8-openjdk neofetch unrar unzip p7zip zsh tmux openssh gimp firefox chromium</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="0x00-X-窗口管理系统"><a href="#0x00-X-窗口管理系统" class="headerlink" title="0x00 X 窗口管理系统"></a>0x00 X 窗口管理系统</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -S xorg xorg-xinit	<span class="comment"># xorg为X服务基本服务以及一些软件、xorg-xinit为手动启动桌面软件</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="0x01-桌面环境"><a href="#0x01-桌面环境" class="headerlink" title="0x01 桌面环境"></a>0x01 桌面环境</h3><h4 id="1-dwm窗口管理器"><a href="#1-dwm窗口管理器" class="headerlink" title="-1- dwm窗口管理器"></a>-1- dwm窗口管理器</h4><h4 id="1、克隆源代码"><a href="#1、克隆源代码" class="headerlink" title="1、克隆源代码"></a>1、克隆源代码</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议事先创建好文件夹、方便管理文件</span></span><br><span class="line">$ git <span class="built_in">clone</span> https://git.suckless.org/dwm	<span class="comment"># 极简主义窗口管理器</span></span><br><span class="line">$ git <span class="built_in">clone</span> https://git.suckless.org/dmenu	<span class="comment"># 一个软件启动菜单</span></span><br><span class="line">$ git <span class="built_in">clone</span> https://git.suckless.org/st		<span class="comment"># 简单的终端</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2、构建"><a href="#2、构建" class="headerlink" title="2、构建"></a>2、构建</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> dmenu/					<span class="comment"># 进入dmenu目录</span></span><br><span class="line">$ sudo make	clean install	<span class="comment"># 这里先构建dmenu(无需配置)，等下dwm要用得到，不然会很尴尬</span></span><br><span class="line">$ <span class="built_in">cd</span> st/					<span class="comment"># 进入st目录</span></span><br><span class="line">$ sudo make	clean install	<span class="comment"># dwm默认终端为st，先构建暂不配置，使用官方配置</span></span><br><span class="line">$ <span class="built_in">cd</span> dwm/					<span class="comment"># 进入dwm目录</span></span><br><span class="line">$ sudo make	clean install	<span class="comment"># 构建dwm(官方配置)</span></span><br></pre></td></tr></table></figure>
+
+<p>修改<code>/etc/X11/Xinit/xinitrc</code>在最后一行加入<code>exec dwm</code>，注意前一行尾部要有&amp;.</p>
+<p>然后在tty界面输入startx启动.</p>
+<h4 id="3、dwm的一些默认设置"><a href="#3、dwm的一些默认设置" class="headerlink" title="3、dwm的一些默认设置"></a>3、dwm的一些默认设置</h4><p>dwm默认的 <strong>MODKEY</strong> 为 <strong>Alt</strong> 键。</p>
+<p>Alt + Shitf + Return(回车)    打开终端 (默认为st)</p>
+<p>Alt + P                                     打开启动菜单</p>
+<p>Alt + Shitf + q                        关闭dwm (也可以在命令行输入<code>killall dwm</code>)</p>
+<h4 id="4、个性化配置dwm"><a href="#4、个性化配置dwm" class="headerlink" title="4、个性化配置dwm"></a>4、个性化配置dwm</h4><h3 id="0x02-美化"><a href="#0x02-美化" class="headerlink" title="0x02 美化"></a>0x02 美化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -S feh picom xfce4-power-manager alsa-utils</span><br><span class="line"><span class="comment"># feh为壁纸软件、picom可以透明窗口拥有毛玻璃特效、alsa-utils为声音组件</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2、polybar"><a href="#2、polybar" class="headerlink" title="2、polybar"></a>2、polybar</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yay -S polybar	<span class="comment"># 代替dwm的状态显示器，依赖尽量都安装了</span></span><br><span class="line">$ sudo pacman -S libmpdclient mpd	<span class="comment"># 要使用mpd模块，需要安装这两个</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-kde"><a href="#2-kde" class="headerlink" title="-2- kde"></a>-2- kde</h4><ul>
+<li>plasma-desktop</li>
+<li>plasma</li>
+<li>konsole    # 终端</li>
+<li>latte-dock    # 下方的dock</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -S plasma plasma-desktop konsole latte-dock</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman-S adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts nerd-fonts-code-new-roman ttf-wps-fonts</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>输入法</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -S fcitx5</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h2><ul>
+<li>netease-cloud-music    #网易云</li>
+<li>mplayer    #轻量视频播放器</li>
+<li>vlc     # 视频播放器</li>
+<li>telegram    # 社交</li>
+<li>yakuake    # 下拉式终端</li>
+<li>obs    # 录屏直播</li>
+<li>wps    # office</li>
+<li>pencil    # 画画</li>
+<li>ranger    # 终端文件管理器</li>
+<li>feh    # 图片查看器</li>
+<li>Dolphin    # kde文件管理器</li>
+<li>v2ray qv2ray    # 网络加速</li>
+<li>kdenlive    # 视频剪辑</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S netease-cloud-music mplayer vlc telegram-desktop yakuake obs-studio wps pencil ranger feh dolphin kdenlive</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><ul>
+<li>vscode    # 经典代码编辑器</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S visual-studio-code-bin </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="CTF-Tools"><a href="#CTF-Tools" class="headerlink" title="CTF Tools"></a>CTF Tools</h2><h3 id="web"><a href="#web" class="headerlink" title="web"></a>web</h3><ul>
+<li>nmap    # 网络扫描</li>
+<li>sqlmap    # sql注入</li>
+<li>zaproxy    # yyds</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -S nmap sqlmap zaproxy</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h3><ul>
+<li>IDA Pro    # 静态分析</li>
+</ul>
+<p>需要Wine环境</p>
+<ul>
+<li>Pwntools    # pwn选手专用库<ul>
+<li>checksec</li>
+<li>ROPgadget</li>
+</ul>
+</li>
+<li>pwndbg    # 动态调试</li>
+</ul>
+<p>添加 <code>source /usr/share/pwndbg/gdbinit.py</code> 到 <code>~/.gdbinit</code></p>
+<ul>
+<li>one_gadget    # 一键从libc中找到可以getshell的地址，ruby环境</li>
+<li>main_arena_offset    # 取自github</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yay -S pwndbg</span><br><span class="line">$ pip install pwntools</span><br><span class="line">$ gem install one_gadget</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Sec-Tools"><a href="#Sec-Tools" class="headerlink" title="Sec Tools"></a>Sec Tools</h2><ul>
+<li>lynis    # 系统扫描工具</li>
+<li>ettercap    # arp攻击</li>
+<li>wireshark    # 流量分析</li>
+<li>aircrack-ng    # wifi攻击套件</li>
+<li>metasploit    # msf框架</li>
+<li>maltego    # 社工框架</li>
+<li>chntpw    # 密码破解工具</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -S lynis ettercap wireshark aircrack-ng metasploit chntpw</span><br><span class="line">$ yay -S maltego</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+        <hr class="fhr">
+        <div id="vcomments"></div>
+    
+</div>
+    <div class="footer" id="footer">
+    <p>Copyright © 2020 <a class="flink" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>-<a class="flink" target="_blank" rel="noopener" href="https://github.com/sanjinhub/hexo-theme-geek">Geek</a>.
+        <label class="el-switch el-switch-green el-switch-sm" style="vertical-align: sub;">
+            <input type="checkbox" name="switch" id="update_style">
+            <span class="el-switch-style"></span>
+        </label>
+<!--         <script type="text/javascript">
+        var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+        document.write(unescape("%3Cspan id='cnzz_stat_icon_1278548644'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D1278548644%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+        </script> -->
+    </p>
+</div>
+<input type="hidden" id="web_style" value="white">
+<input type="hidden" id="valine_appid" value="CmCti21ooOOIzFOhEyFkFvR0-gzGzoHsz">
+<input type="hidden" id="valine_appKey" value="FqiyUqbg7McKN2eG0MCewupf">
+
+<script src="/libs/jquery.min.js"></script>
+
+
+<script src="/libs/highlight/highlight.pack.js"></script>
+
+<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+
+<script src="/js/js.js"></script>
+
+<style type="text/css">
+.v * {
+    color: #698fca;
+}
+
+.v .vlist .vcard .vhead .vsys {
+    color: #3a3e4a;
+}
+
+.v .vlist .vcard .vh .vmeta .vat {
+    color: #638fd5;
+}
+
+.v .vlist .vcard .vhead .vnick {
+    color: #6ba1ff;
+}
+
+.v a {
+    color: #8696b1;
+}
+
+.v .vlist .vcard .vhead .vnick:hover {
+    color: #669bfc;
+}
+</style>
+</body>
+
+</html>

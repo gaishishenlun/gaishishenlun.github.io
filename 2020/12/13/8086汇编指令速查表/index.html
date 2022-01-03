@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        Hexo
+    </title>
+    
+<link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body id="bodyx">
+    <div class="hd posts">
+    <a href="/index.html"><i class="fa fa-reply replay-btn" aria-hidden="true"></i></a>
+    <div class="post-title">
+        <p>
+            8086汇编指令速查表
+        </p>
+        <hr>
+    </div>
+    <div class="post-content">
+        <h1 id="汇编指令速查表"><a href="#汇编指令速查表" class="headerlink" title="汇编指令速查表"></a>汇编指令速查表</h1><h2 id="一、数据传送"><a href="#一、数据传送" class="headerlink" title="一、数据传送"></a>一、数据传送</h2><p><strong>1、MOV</strong>    赋值指令</p>
+<ul>
+<li><p><strong>描述</strong>：赋值指令</p>
+</li>
+<li><p><strong>格式</strong>：MOV  DST,SRC</p>
+</li>
+<li><p><strong>功能</strong>： DST &lt;= SRC</p>
+</li>
+<li><p><strong>注意</strong>： ①不能DST,SRC都是存储器，这也是所有双操作数指令的通用要求。</p>
+<p>② 但其中一个是段寄存器时，另一个操作数必须是数据寄存器。</p>
+<p>③不允许往CS传递数据</p>
+<p>④将立即数送存储时，要指定操作数类型。BYTE PTR ,WORD PTR, DWORD PTR</p>
+<p>⑤不影响PSW</p>
+</li>
+</ul>
+<p><strong>2、PUSH</strong></p>
+<ul>
+<li><strong>描述</strong>：入栈指令</li>
+<li><strong>格式</strong>：PUSH SRC</li>
+<li><strong>功能</strong>：将SRC入栈</li>
+<li><strong>注意</strong>：只能是对“字”操作。</li>
+</ul>
+<p><strong>3、POP</strong></p>
+<ul>
+<li><strong>描述</strong>：出栈指令</li>
+<li><strong>格式</strong>：POP DST</li>
+<li><strong>功能</strong>：将栈顶元素出栈赋值给DST</li>
+</ul>
+<p><strong>4、XCHG</strong></p>
+<ul>
+<li><strong>描述</strong>：数据交换指令</li>
+<li><strong>格式</strong>：SCHG DST,SRC</li>
+<li><strong>功能</strong>：将DST.SRC的值进行交换</li>
+<li><strong>注意</strong>：不能DST,SRC都是存储器，这也是所有双操作数指令的通用要求。</li>
+</ul>
+<p><strong>5、IN</strong></p>
+<ul>
+<li><strong>格式</strong>：IN DST,SRC</li>
+<li><strong>功能</strong>：从SRC端口读取一个字节/字到DST中。</li>
+</ul>
+<p><strong>6、OUT</strong></p>
+<ul>
+<li><strong>格式</strong>：OUT DST,SRC</li>
+<li><strong>功能</strong>：将SRC中的数据送到DST短空中</li>
+</ul>
+<p><strong>7、XLAT</strong></p>
+<ul>
+<li><strong>描述</strong>：取表指令</li>
+<li><strong>格式</strong>：XLAT</li>
+<li>功能：以DS:[BX+AL]为地址提取一个字节的数据送到AL中</li>
+</ul>
+<p><strong>8、LEA</strong></p>
+<ul>
+<li><strong>格式</strong>：LEA  REG,MEM</li>
+<li><strong>功能</strong>：取MEM的偏移地址送到REG中。</li>
+</ul>
+<p><strong>9、LDS</strong> </p>
+<ul>
+<li><strong>格式</strong>：LDS reg,mem</li>
+<li><strong>功能</strong>：是把mem指向的地址,高位存放在DS中,低位存放在reg中。</li>
+</ul>
+<p><strong>10、LES</strong></p>
+<ul>
+<li><strong>格式</strong>：LES reg,mem</li>
+<li><strong>功能</strong>：是把mem指向的地址,高位存放在ES中,低位存放在reg中。</li>
+</ul>
+<p><strong>11、PUSHF</strong>  </p>
+<ul>
+<li><strong>格式</strong>：PUSHF</li>
+<li><strong>功能</strong>：将PSW进栈</li>
+</ul>
+<p><strong>12、POPF</strong>    </p>
+<ul>
+<li><strong>格式</strong>：POPF</li>
+<li><strong>功能</strong>：将栈顶元素送到PSW</li>
+</ul>
+<p><strong>13、LAHF</strong>     </p>
+<ul>
+<li><strong>格式</strong>：LAHF</li>
+<li><strong>功能</strong>：将PSW的低八位送到AH中</li>
+</ul>
+<p><strong>14、SAHF</strong>     </p>
+<ul>
+<li><strong>格式</strong>：SAHF</li>
+<li><strong>功能</strong>：将AH写入PSW的低八位</li>
+</ul>
+<h2 id="二、算术"><a href="#二、算术" class="headerlink" title="二、算术"></a>二、算术</h2><p><strong>1、ADD</strong></p>
+<ul>
+<li><strong>描述</strong>：加法指令</li>
+<li><strong>格式</strong>：ADD  DST,SRC</li>
+<li><strong>功能</strong>： DST &lt;= DST+REC</li>
+</ul>
+<p><strong>2、ADC</strong></p>
+<ul>
+<li><strong>格式</strong>：ADC  DST,SRC</li>
+<li><strong>功能</strong>：DST &lt;= DST + REC + CF</li>
+</ul>
+<p><strong>3、INC</strong></p>
+<ul>
+<li><strong>格式</strong>： INC DST</li>
+<li><strong>功能</strong>：DST &lt;= DST + 1</li>
+</ul>
+<p><strong>4、SUB</strong></p>
+<ul>
+<li><strong>格式</strong>：SUB  DSTSRC</li>
+<li><strong>功能</strong>： DST &lt;= DST - SRC</li>
+</ul>
+<p><strong>5、SBB</strong></p>
+<ul>
+<li><strong>格式</strong>：SBB  DST,SRC</li>
+<li><strong>功能</strong>：DST &lt;= DST - SRC - CF</li>
+</ul>
+<p><strong>6、DEC</strong></p>
+<ul>
+<li><strong>格式</strong>： DEC DST</li>
+<li><strong>功能</strong>：DST &lt;= DST - 1</li>
+</ul>
+<p><strong>7、NEG</strong>  </p>
+<ul>
+<li><strong>格式</strong>：NEG REG</li>
+<li><strong>功能</strong>：求补，即REG中的各位取反，然后 + 1。</li>
+</ul>
+<p><strong>8、CMP</strong></p>
+<ul>
+<li><strong>格式</strong>：CMP  DST,SRC</li>
+<li><strong>功能</strong>：DST - REG 结果不保存，但是状态保存在PSW中。</li>
+</ul>
+<p><strong>9、MUL</strong></p>
+<ul>
+<li><strong>描述</strong>：无符号数乘法</li>
+<li><strong>格式</strong>：MUL SRC</li>
+<li><strong>功能</strong>：①字节操作：(AX) &lt;=(AL) * (SRC)</li>
+</ul>
+<p>​         ②字操作：(DX,AX) &lt;= (AX) *(SRC)</p>
+<p>​         ③双字操作：(EDX,EAX) &lt;= (EAX) *(SRC)</p>
+<p><strong>10、IMUL</strong></p>
+<ul>
+<li><strong>描述</strong>：有符号数乘法</li>
+<li><strong>格式</strong>：IMUL  SRC</li>
+<li><strong>功能</strong>：DST &lt;= DST * SRC</li>
+</ul>
+<p><strong>11、DIV</strong></p>
+<ul>
+<li><strong>描述</strong>：无符号数除法</li>
+<li><strong>格式</strong>：DIV  SRC</li>
+<li><strong>功能</strong>：①字节操作：(AH) &lt;= (AX)/(SRC)的余数;(AL) &lt;= (AX)/(SRC)的商</li>
+</ul>
+<p>​         ②字操作：(DX) &lt;= (DX,AX)/(SRC)的余数;(AX) &lt;= (DX,AX)/(SRC)的商</p>
+<p>​         ③双字操作：(EDX) &lt;= (EDX,EAX)/(SRC)的余数;(EAX) &lt;= (EDX,EAX)/(SRC)的商</p>
+<p><strong>12、IDIV</strong></p>
+<ul>
+<li><strong>描述</strong>：有符号数除法</li>
+<li><strong>格式</strong>：IDIV  SRC</li>
+<li><strong>功能</strong>：①字节操作：(AH) &lt;= (AX)/(SRC)的余数;(AL) &lt;= (AX)/(SRC)的商</li>
+</ul>
+<p>​         ②字操作：(DX) &lt;= (DX,AX)/(SRC)的余数;(AX) &lt;= (DX,AX)/(SRC)的商</p>
+<p>​         ③双字操作：(EDX) &lt;= (EDX,EAX)/(SRC)的余数;(EAX) &lt;= (EDX,EAX)/(SRC)的商</p>
+<p><strong>13、CBW</strong></p>
+<ul>
+<li><strong>格式</strong>：CBW</li>
+<li><strong>功能</strong>：将AL保持原值（<strong>有符号数</strong>）扩展到AX。</li>
+<li><strong>注意</strong>：此时是将AL的值看为<strong>有符号数</strong>，根据AL的最高位（符号位）来决定AH是00H还是FFH</li>
+</ul>
+<p><strong>14、CWD</strong></p>
+<ul>
+<li><strong>格式</strong>：CWD</li>
+<li><strong>功能</strong>：将AX保持原值（有符号数）扩展到DX,AX。</li>
+<li><strong>注意</strong>：此时是将AX的值看为<strong>有符号数</strong>，根据AX的最高位（符号位）来决定DX是0000H还是FFFFH</li>
+</ul>
+<h2 id="三、逻辑"><a href="#三、逻辑" class="headerlink" title="三、逻辑"></a>三、逻辑</h2><p><strong>1、AND</strong></p>
+<ul>
+<li><strong>描述</strong>：“与”逻辑运算</li>
+<li><strong>格式</strong>：AND  DST,SRC</li>
+<li><strong>功能</strong>：DST &lt;= DST AND SRC 将DST和REG对应各位进行“与”运算后结果保留于DST</li>
+</ul>
+<p><strong>2、OR</strong></p>
+<ul>
+<li><strong>描述</strong>：“或”逻辑运算</li>
+<li><strong>格式</strong>：OR  DST,SRC</li>
+<li><strong>功能</strong>：DST &lt;= DST OR SRC  将DST和REG对应各位进行“或”运算后结果保留于DST</li>
+</ul>
+<p><strong>3、NOT</strong></p>
+<ul>
+<li><strong>描述</strong>：“非”逻辑运算</li>
+<li><strong>格式</strong>：NOT  DST</li>
+<li><strong>功能</strong>：DST &lt;= NOT DST  将DST各位”取反”结果保留于DST</li>
+</ul>
+<p><strong>4、XOR</strong></p>
+<ul>
+<li><strong>描述</strong>：“异或”逻辑运算</li>
+<li><strong>格式</strong>：XOR  DST,SRC</li>
+<li><strong>功能</strong>：  DST &lt;= DST XOR SRC  将DST和SRC对应各位进行“异或”运算后结果保留于DST</li>
+</ul>
+<p><strong>5、TEST</strong></p>
+<ul>
+<li><strong>描述</strong>：“与”逻辑运算，当只影响PSW，不保留运算结果。</li>
+<li><strong>格式</strong>：TEST  DST,SRC</li>
+<li><strong>功能</strong>：DST AND SRC  将DST和SRC对应各位进行“与”运算，结果状态影响PSW，但不该表DST,SRC的值。</li>
+</ul>
+<p><strong>6、SHL</strong></p>
+<ul>
+<li><strong>描述</strong>：逻辑左移</li>
+<li><strong>格式</strong>：SHL  DST，1/CL</li>
+<li><strong>功能</strong>：将DST顺序左移1位或CL寄存器中指定的位数。左移一位时，DST的最高位移入进位标志位CF，最低位补零。</li>
+</ul>
+<p><strong>7、SAL</strong></p>
+<ul>
+<li><strong>描述</strong>：算术左移</li>
+<li><strong>格式</strong>：SAL  SRC，1/CL</li>
+<li><strong>功能</strong>：将SRC顺序左移1位或CL寄存器中指定的位数。左移一位时，SRC的最高位移入进位标志位CF，最低位补零。</li>
+</ul>
+<p><strong>8、SHR</strong></p>
+<ul>
+<li><strong>描述</strong>：逻辑右移</li>
+<li><strong>格式</strong>：SHR SRC，1/CL</li>
+<li><strong>功能</strong>：将SRC顺序右移1位或CL寄存器指定的位数。逻辑右移1位时，SRC的最低位移到进位标志位CF,最高位补零。</li>
+</ul>
+<p><strong>9、SAR</strong></p>
+<ul>
+<li><strong>描述</strong>：算术右移</li>
+<li><strong>格式</strong>：SAR  SRC，1/CL</li>
+<li><strong>功能</strong>：将SRC顺序右移1位或CL寄存器指定的位数。逻辑右移1位时，SRC的最低位移到进位标志位CF,最高位用原先最高位的值填充。</li>
+</ul>
+<p><strong>10、ROL</strong></p>
+<ul>
+<li><strong>描述</strong>：循环左移</li>
+<li><strong>格式</strong>：ROL  SRC,1/CL</li>
+<li><strong>功能</strong>：将SRC顺序左移1位或CL寄存器指定的位数。循环左移1位时，SRC的最高位移到最低位，并且最高位同时移入标志位CF。</li>
+</ul>
+<p><strong>11、ROR</strong></p>
+<ul>
+<li><strong>描述</strong>：循环右移</li>
+<li><strong>格式</strong>：ROR  SRC,1/CL</li>
+<li><strong>功能</strong>：将SRC顺序右移1位或CL寄存器指定的位数。循环左移1位时，SRC的最低位移到最高位，并且最低位同时移入标志位CF。</li>
+</ul>
+<p><strong>12、RCL</strong></p>
+<ul>
+<li><strong>描述</strong>：带进位循环左移</li>
+<li><strong>格式</strong>：RCL  SRC,1/CL</li>
+<li><strong>功能</strong>：将SRC顺序左移1位或CL寄存器指定的位数。带进位循环左移1位时，原先状态位CF的值移入SRC的最低位，SRC的最高位移入状态位CF。</li>
+</ul>
+<p><strong>13、RCR</strong></p>
+<ul>
+<li><strong>描述</strong>：带进位循环右移</li>
+<li><strong>格式</strong>：RCR  SRC,1/CL</li>
+<li><strong>功能</strong>：将SRC顺序右移1位或CL寄存器指定的位数。带进位循环右移1位时，原先状态位CF的值移入SRC的最高位，SRC的最低位移入状态位CF。</li>
+</ul>
+<h2 id="四、串指令"><a href="#四、串指令" class="headerlink" title="四、串指令"></a>四、串指令</h2><p>当方向标志位DF = 0时，DI,SI+    当DF = 1时，DI,SI-        ES:DI  DS:SI</p>
+<p><strong>1、MOVS</strong>      </p>
+<ul>
+<li><p><strong>格式</strong>：①MOVS  DST,SRC   ②MOVSB（字节）   ③MOVSW（字）   ④MOVSD（双字）</p>
+</li>
+<li><p><strong>功能</strong>： ①字节操作：[ES:DI]&lt;=[DS:SI] ,SI&lt;=SI +/- 1</p>
+<p>②字操作：[ES:DI]&lt;=[DS:SI]] ,SI &lt;= SI +/- 2</p>
+<p>③双字操作：[ES:DI]&lt;=[DS:SI] ,SI &lt;= SI +/- 4</p>
+</li>
+</ul>
+<p><strong>2、CMPS</strong></p>
+<ul>
+<li><p><strong>格式：①</strong>CMPSB（字节）  ②CMPSW（字）   ③CMPSD（双字）</p>
+</li>
+<li><p><strong>功能：</strong> ①字节操作：[DS:SI] - [ES:DI] ,SI&lt;=SI +/- 1</p>
+<p>②字操作：[DS:SI] - [ES:DI] ,SI &lt;= SI +/- 2</p>
+<p>③双字操作：[DS:SI] - [ES:DI] ,SI &lt;= SI +/- 4</p>
+</li>
+</ul>
+<p><strong>3、LODS</strong></p>
+<ul>
+<li><p><strong>格式</strong>：①LODSW（字）   ③LODSD（双字）</p>
+</li>
+<li><p><strong>功能</strong>： ①字节操作：AL &lt;= [DS:SI] ,SI&lt;=SI +/- 1</p>
+<p>②字操作：AX &lt;= [DS:SI] ,SI &lt;= SI +/- 2</p>
+<p>③双字操作：EAX &lt;= [DS:SI] ,SI &lt;= SI +/- 4</p>
+</li>
+</ul>
+<p><strong>4、STOS</strong></p>
+<ul>
+<li><p><strong>格式</strong>：①STOSB（字节）   ②STOSW（字）   ③STOSD（双字）</p>
+</li>
+<li><p><strong>功能</strong>： ①字节操作：[DS:SI] &lt;= AL  ,SI&lt;=SI +/- 1</p>
+<p>②字操作：[DS:SI] &lt;= AX ,SI &lt;= SI +/- 2</p>
+<p>③双字操作：[DS:SI] &lt;= EAX  ,SI &lt;= SI +/- 4</p>
+</li>
+</ul>
+<p><strong>5、SCAS</strong></p>
+<ul>
+<li><strong>格式：①</strong>SCASB（字节）   <strong>②</strong>SCASW（字）   <strong>③</strong>SCASD（双字）</li>
+<li><strong>功能：</strong>①字节操作： AL - [DS:SI]  ,SI&lt;=SI +/- 1</li>
+</ul>
+<p>​         ②字操作：AX - [DS:SI]  ,SI &lt;= SI +/- 2</p>
+<p>​         ③双字操作：EAX - [DS:SI]   ,SI &lt;= SI +/- 4</p>
+<p><strong>6、REP</strong></p>
+<ul>
+<li><strong>格式：</strong>REP  string primitive(MOVS,LODS,STOS,INS和OUTS）</li>
+<li>**功能**：****①如果CX = 0退出，否则继续运行以下操作</li>
+</ul>
+<p>​         ②CX &lt;= CX - 1</p>
+<p>​         ③执行以后串操作</p>
+<p>​         ④重复 ①~③</p>
+<p><strong>7、REPE/REPZ</strong></p>
+<ul>
+<li><strong>格式：</strong>REPE/REPZ  string primitive(CMPS或SCAS）</li>
+<li><strong>功能：</strong>①如果CX = 0 或 ZF = 0 退出，否则继续运行以下操作</li>
+</ul>
+<p>​         ②CX &lt;= CX - 1</p>
+<p>​         ③执行以后串操作</p>
+<p>​         ④重复 ①~③</p>
+<p>8、REPNE/REPNZ</p>
+<ul>
+<li><strong>格式：</strong>REPNE/REPNZ  string primitive(CMPS或SCAS）</li>
+<li><strong>功能：</strong>①如果CX = 0 或 ZF = 1 退出，否则继续运行以下操作</li>
+</ul>
+<p>​         ②CX &lt;= CX - 1</p>
+<p>​         ③执行以后串操作</p>
+<p>​         ④重复 ①~③</p>
+<h2 id="五、无条件转移"><a href="#五、无条件转移" class="headerlink" title="五、无条件转移"></a>五、无条件转移</h2><p><strong>1、JMP</strong></p>
+<ul>
+<li><strong>格式</strong>：JMP ADDRESS</li>
+<li><strong>功能</strong>： 无条件跳转到 ADDRESS</li>
+</ul>
+<h2 id="六、条件转移"><a href="#六、条件转移" class="headerlink" title="六、条件转移"></a>六、条件转移</h2><h3 id="1、根据PSW"><a href="#1、根据PSW" class="headerlink" title="1、根据PSW"></a><strong>1、根据PSW</strong></h3><p><strong>1、JZ</strong></p>
+<ul>
+<li><strong>格式</strong>：JZ  EX</li>
+<li><strong>功能</strong>：当ZF = 1时，跳转到EX</li>
+</ul>
+<p><strong>2、JNZ</strong></p>
+<ul>
+<li><strong>格式</strong>：JNZ  EX</li>
+<li><strong>功能</strong>：当ZF = 0时，跳转到EX</li>
+</ul>
+<p><strong>3、JC</strong></p>
+<ul>
+<li><strong>格式</strong>：JC  EX</li>
+<li><strong>功能</strong>：当CF = 1时，跳转到EX</li>
+</ul>
+<p><strong>4、JNC</strong></p>
+<ul>
+<li><strong>格式</strong>：JNC  EX</li>
+<li><strong>功能</strong>：当CF = 0时，跳转到EX</li>
+</ul>
+<p><strong>5、JO</strong></p>
+<ul>
+<li><strong>格式</strong>：JO  EX</li>
+<li><strong>功能</strong>：当OF = 1时，跳转到EX</li>
+</ul>
+<p><strong>6、JNO</strong></p>
+<ul>
+<li><strong>格式</strong>：JNO  EX</li>
+<li><strong>功能</strong>：当OF = 0时，跳转到EX</li>
+</ul>
+<p><strong>7、JS</strong></p>
+<ul>
+<li><strong>格式</strong>：JS  EX</li>
+<li><strong>功能</strong>：当SF = 1时，跳转到EX</li>
+</ul>
+<p><strong>8、JNS</strong></p>
+<ul>
+<li><strong>格式</strong>：JNS  EX</li>
+<li><strong>功能</strong>：当SF = 0时，跳转到EX</li>
+</ul>
+<h3 id="2、比较两个无符号数后"><a href="#2、比较两个无符号数后" class="headerlink" title="2、比较两个无符号数后"></a><strong>2、比较两个无符号数后</strong></h3><p><img src="https://img-blog.csdn.net/20180614191534609?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTc5MzM2MA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p><strong>#  N ：不等于  A：大于  B ： 小于  E ：等于</strong></p>
+<h3 id="3、比较两个有符号数后"><a href="#3、比较两个有符号数后" class="headerlink" title="3、比较两个有符号数后"></a><strong>3、比较两个有符号数后</strong></h3><p><img src="https://img-blog.csdn.net/20180614191644382?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTc5MzM2MA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p><strong>#  N ：不等于  G：大于  L ： 小于  E ：等于</strong></p>
+<h3 id="4、JCXZ"><a href="#4、JCXZ" class="headerlink" title="4、JCXZ"></a>4、JCXZ</h3><ul>
+<li><strong>格式</strong>： JCXZ EX</li>
+<li><strong>功能</strong>：若 CX = 0，则跳转到EX</li>
+</ul>
+<h2 id="七、循环"><a href="#七、循环" class="headerlink" title="七、循环"></a>七、循环</h2><ul>
+<li>LOOP</li>
+<li>LOOPE/LOOPZ</li>
+<li>LOOPNE/LOOPNZ</li>
+</ul>
+<h2 id="八、子程序"><a href="#八、子程序" class="headerlink" title="八、子程序"></a>八、子程序</h2><p><strong>1、CALL</strong></p>
+<ul>
+<li><strong>格式</strong>：①CALL EX/NEAR  PTR  EX</li>
+</ul>
+<p>​         ②CALL  FAR  PTR  EX </p>
+<ul>
+<li><strong>功能</strong>：①将IP进栈；将子程序的入口地址的位移量 =&gt;IP</li>
+</ul>
+<p>​         ②将CS入栈；将IP入栈；将子程序入口地址偏移量 =&gt;IP；将子程序的段地址 =&gt;CS</p>
+<p><strong>2、RET</strong></p>
+<ul>
+<li><strong>格式</strong>：RET (num)</li>
+<li><strong>功能</strong>：①将栈顶元素出栈 =&gt; IP</li>
+</ul>
+<p>​         ②将SP向高地址移动num位。</p>
+<p><strong>3、RETF</strong></p>
+<ul>
+<li><strong>格式</strong>：RETF (num)</li>
+<li><strong>功能</strong>：①将栈顶元素出栈 =&gt; IP</li>
+</ul>
+<p>​         ②将栈顶元素出栈 =&gt;CS</p>
+<p>​         ③将SP向高地址移动num位。</p>
+<h2 id="九、中断"><a href="#九、中断" class="headerlink" title="九、中断"></a>九、中断</h2><ul>
+<li>INT XX</li>
+<li>IRET</li>
+</ul>
+<h2 id="十、空操作"><a href="#十、空操作" class="headerlink" title="十、空操作"></a>十、空操作</h2><ul>
+<li>NOP</li>
+</ul>
+<h2 id="十一、标志"><a href="#十一、标志" class="headerlink" title="十一、标志"></a>十一、标志</h2><p><strong>1、CLC</strong></p>
+<ul>
+<li><strong>格式</strong>：CLC</li>
+<li><strong>功能</strong>：令CF=0</li>
+</ul>
+<p><strong>2、STC</strong>  </p>
+<ul>
+<li><strong>格式</strong>：STC </li>
+<li><strong>功能</strong>：令CF=1</li>
+</ul>
+<p><strong>3、CMC</strong> </p>
+<ul>
+<li><strong>格式</strong>：CMC </li>
+<li><strong>功能</strong>：令CF取反。</li>
+</ul>
+<p><strong>4、CLD</strong> </p>
+<ul>
+<li><strong>格式</strong>：CLD </li>
+<li><strong>功能</strong>：令DF = 0</li>
+</ul>
+<p><strong>5、STD</strong> </p>
+<ul>
+<li><strong>格式</strong>：STD </li>
+<li><strong>功能</strong>：令DF = 1</li>
+</ul>
+<p><strong>6、CLI</strong>  </p>
+<ul>
+<li><strong>格式</strong>：CLI</li>
+<li><strong>功能</strong>：禁止发生中断</li>
+</ul>
+<p><strong>7、STI</strong> </p>
+<ul>
+<li><strong>格式</strong>：STI </li>
+<li><strong>功能</strong>： 允许发生中断</li>
+</ul>
+
+    </div>
+
+    
+        <hr class="fhr">
+        <div id="vcomments"></div>
+    
+</div>
+    <div class="footer" id="footer">
+    <p>Copyright © 2020 <a class="flink" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>-<a class="flink" target="_blank" rel="noopener" href="https://github.com/sanjinhub/hexo-theme-geek">Geek</a>.
+        <label class="el-switch el-switch-green el-switch-sm" style="vertical-align: sub;">
+            <input type="checkbox" name="switch" id="update_style">
+            <span class="el-switch-style"></span>
+        </label>
+<!--         <script type="text/javascript">
+        var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+        document.write(unescape("%3Cspan id='cnzz_stat_icon_1278548644'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D1278548644%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+        </script> -->
+    </p>
+</div>
+<input type="hidden" id="web_style" value="white">
+<input type="hidden" id="valine_appid" value="CmCti21ooOOIzFOhEyFkFvR0-gzGzoHsz">
+<input type="hidden" id="valine_appKey" value="FqiyUqbg7McKN2eG0MCewupf">
+
+<script src="/libs/jquery.min.js"></script>
+
+
+<script src="/libs/highlight/highlight.pack.js"></script>
+
+<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+
+<script src="/js/js.js"></script>
+
+<style type="text/css">
+.v * {
+    color: #698fca;
+}
+
+.v .vlist .vcard .vhead .vsys {
+    color: #3a3e4a;
+}
+
+.v .vlist .vcard .vh .vmeta .vat {
+    color: #638fd5;
+}
+
+.v .vlist .vcard .vhead .vnick {
+    color: #6ba1ff;
+}
+
+.v a {
+    color: #8696b1;
+}
+
+.v .vlist .vcard .vhead .vnick:hover {
+    color: #669bfc;
+}
+</style>
+</body>
+
+</html>
